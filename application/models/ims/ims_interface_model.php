@@ -74,4 +74,24 @@ class Ims_interface_model extends CI_Model
 		return $courses;
 	}
 
+	public function search_student($info){
+		$this->load->model('ims/search_student_model');
+		if($info == NULL)
+			$studets = $this->search_student_model->searchAll();
+		else
+			$students = $this->search_student_model->search($info);
+
+		return $students;
+	}
+
+	public function search_teacher($info){
+		$this->load->model('ims/search_teacher_model');
+		if($info == NULL)
+			$teachers = $this->search_teacher_model->searchAll();
+		else
+			$teachers = $this->search_teacher_model->search($info);
+
+		return $teachers;
+	}
+
 }
