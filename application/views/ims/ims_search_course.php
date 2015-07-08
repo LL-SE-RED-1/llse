@@ -57,10 +57,13 @@
                         <td  class="center aligned"><?php echo $item['course_id']?></td>
                         <td  class="center aligned"><?php echo $item['college']?></td>
                         <td class="center aligned">
-                            <button class="ui  button modify labeled icon button" type="submit">
-                                <i class="info  icon"></i> 查看详情
+                            <button class="ui button modify labeled icon button" type="submit">
+                                <i class="info icon"></i> 查看详情
                             </button>
-
+                            <div class="ui button teal labeled icon button">
+                                <i class="info icon" ></i> 
+                                <a href="<?php echo site_url('r2/teacher_menu'); ?>?course_id=<?php echo $item['course_id']?>" style="color: #FFF">开设教学班</a>
+                            </div>
                         </td>
                     </form>
 

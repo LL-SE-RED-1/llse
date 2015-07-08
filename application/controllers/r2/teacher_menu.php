@@ -7,6 +7,7 @@ class teacher_menu extends CI_Controller{
 		$this->load->model('r2/t_menu_model');//load对应的model文件
 	}
 	public function index(){
+		// die(var_dump($this->input->get()));
 		$data['tid']=$this->session->userdata['uid'];
 		$this->load->model('r2/t_menu_model');//load对应的model文件
 		$data['apply1']=$this->t_menu_model->get_apply1();//调用get_apply1函数获取待排课的所有教学班信息

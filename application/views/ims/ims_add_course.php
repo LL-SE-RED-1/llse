@@ -78,7 +78,7 @@
                     </div>
                 </div>
             </div>
-            <div class="three fields">
+            <div class="four fields">
                 <div class="required field">
                     <label>学期</label>
                     <div class="ui selection dropdown">
@@ -133,9 +133,45 @@
                         </div>
                     </div>
                 </div>
+                <div class="required field">
+                    <label>校区</label>
+                    <div class="ui selection dropdown">
+                        <div class="default text"></div>
+                        <i class="dropdown icon"></i>
+                    <?php if ($func == 0): ?>
+                        <input name="campus" type="hidden">
+                    <?php else: ?>
+                        <input name="campus" type="hidden" value="<?php echo $info['campus']?>">
+                    <?php endif;?>
+                        <div class="menu">
+                            <div class="item" data-value="1">紫金港</div>
+                            <div class="item" data-value="2">玉泉</div>
+                            <div class="item" data-value="3">西溪</div>
+                            <div class="item" data-value="4">华家池</div>
+                            <div class="item" data-value="5">之江</div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="three fields">
+            <div class="four fields">
+                <div class="required field">
+                    <label>课程类别</label>
+                    <div class="ui selection dropdown">
+                        <div class="default text"></div>
+                        <i class="dropdown icon"></i>
+                    <?php if ($func == 0): ?>
+                        <input name="course_type" type="hidden">
+                    <?php else: ?>
+                        <input name="course_type" type="hidden" value="<?php echo $info['course_type']?>">
+                    <?php endif;?>
+                        <div class="menu">
+                            <div class="item" data-value="0">专业选修</div>
+                            <div class="item" data-value="1">专业必修</div>
+                            <div class="item" data-value="2">公共课</div>
+                        </div>
+                    </div>
+                </div>
                 <div class="required field">
                     <label>课程容量</label>
                     <?php if ($func == 0): ?>
@@ -346,6 +382,24 @@
 							}
 						]
 					},
+                    校区: {
+                        identifier: 'campus',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : '请填写校区信息'
+                            }
+                        ]
+                    },
+                    课程类别: {
+                        identifier: 'course_type',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : '请填写课程类别'
+                            }
+                        ]
+                    },
 					批量添加内容: {
 					    identifier: 'batch',
 					    rules: [
