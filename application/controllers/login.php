@@ -60,7 +60,7 @@ class Login extends CI_Controller {
 			);
 			$this->session->set_userdata($data);
 
-			redirect('ims/ims_welcome');
+			redirect('llse_welcome');
 		} else {
 			//if login failed
 			//redirect to login page and echo error message

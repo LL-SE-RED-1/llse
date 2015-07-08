@@ -50,7 +50,7 @@ $_SESSION['user_id']=null;
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">浙江大学教务管理系统</a><!--标头-->
+          <a class="navbar-brand" href="<?php echo site_url('llse_welcome');?>">浙江大学教务管理系统</a><!--标头-->
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right"><!--导航按钮-->
