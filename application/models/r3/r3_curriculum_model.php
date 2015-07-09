@@ -191,10 +191,9 @@
 		}
 		//根据学生id，找到他上的所有课的上课时间
 		public function get_time_by_sid($sid){
-			$res = $this->db->select('day, class_time, test_time')
+			$res = $this->db->select('class_time, test_time')
 				->from('curriculum') //从curriculum表中找
 				->where('student_id ', $sid)
-				->order_by('day', 'asc')
 				->get();
 			return $res->result(); //返回他所有课的上课时间
 		}
