@@ -47,18 +47,7 @@ $this->load->helper('url');
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<?php echo site_url('llse_welcome');?>">浙江大学教务管理系统</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Help</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
+          <a class="navbar-brand" href="<?php echo site_url('llse_welcome');?>">教务管理系统</a>
         </div>
       </div>
     </nav>
@@ -70,8 +59,8 @@ $this->load->helper('url');
            侧边栏，链接到不同模块
         -->
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="admin_classroom_edit">自动排课 <span class="sr-only">(current)</span></a></li>
-            <li><a href="Search">查找与打印</a></li>
+            <li class="active"><a href="<?php echo  base_url() ;?>/index.php/r2/admin_classroom_edit">自动排课 <span class="sr-only">(current)</span></a></li>
+            <li><a href="<?php echo  base_url() ;?>/index.php/r2/Search">查找与打印</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -79,17 +68,17 @@ $this->load->helper('url');
         <!-- 三个子模块 -->
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-3 placeholder">
-              <a href="admin_classroom_edit"><img data-src="holder.js/200x200/auto/sky" class="img-responsive"></a>
+              <a href="<?php echo  base_url() ;?>/index.php/r2/admin_classroom_edit"><img data-src="holder.js/200x200/auto/sky" class="img-responsive"></a>
               <h4>教学资源管理</h4>
               <span class="text-muted">添加删除教室资源</span>
             </div>
             <div class="col-xs-6 col-sm-3 placeholder">
-              <a href="admin_auto_arrange"><img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail"></a>
+              <a href="<?php echo  base_url() ;?>/index.php/r2/admin_auto_arrange"><img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail"></a>
               <h4>自动排课</h4>
               <span class="text-muted">处理教师开班申请</span>
             </div>
             <div class="col-xs-6 col-sm-3 placeholder">
-              <a href="admin_apply"><img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail"></a>
+              <a href="<?php echo  base_url() ;?>/index.php/r2/admin_apply"><img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail"></a>
               <h4>手动排课</h4>
               <span class="text-muted">手动调整教师排课申请</span>
             </div>
@@ -129,7 +118,7 @@ $this->load->helper('url');
             </table>
           </div>
         
-          <form name="arr" id="arran" method="POST" Action="<?php echo base_url();?>index.php/admin_auto_arrange/arrange">
+          <form name="arr" id="arran" method="POST" Action="<?php echo base_url();?>index.php/r2/admin_auto_arrange/arrange">
              <button class='btn btn-success' type='submit'>开始排课</button>
           </form>
         </div>

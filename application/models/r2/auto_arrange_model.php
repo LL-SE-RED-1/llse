@@ -43,6 +43,7 @@ class Auto_arrange_model extends CI_Model {
 /*获取满足条件的教室*/ 
   public function get_rooms($campus,$type,$capacity){
     $this->load->database();
+    //echo $campus." ".$type." ".$capacity."*";
     $query = $this->db->query("SELECT * FROM classroom where campus = $campus and type = $type and capacity >= $capacity");
     return $query->result_array();
   }
@@ -104,7 +105,7 @@ class Auto_arrange_model extends CI_Model {
     $query = $this->db->query("SELECT * FROM tmp_room_sche WHERE classroom_id = $id");
     if($query->num_rows() == 0){
       $data = $this->db->query("SELECT * FROM room_sche WHERE classroom_id = $id")->row();
-      $this->db->insert('tmp_room_sche',$data);
+       $this->db->insert('tmp_room_sche',$data);
     }
     else
       $data = $query->row();
@@ -133,6 +134,9 @@ class Auto_arrange_model extends CI_Model {
 /*加入一个教学班*/
   public function insert_class($data){
     $this->load->database();
+       // $DB_default=$this->load->database('default', TRUE);//loadÊý¾Ý¿â
+    //$result = $DB_default->query($data);//Ïòapply±í²åÈëÒ»ÌõÉêÇë¼ÇÂ¼£¬½á¹û·µ»Ø¸øresult
+   // echo "result:".$result;
     $this->db->insert('classes',$data);
   }
   
