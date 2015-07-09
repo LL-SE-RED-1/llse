@@ -20,7 +20,7 @@ class Teacher extends CI_Controller {
         foreach($clazz as $index => $value) {
             $clazz[$index] = array(
                 'classId' => $value->class_id,
-                'courseName' => $value->course_name,
+                'courseName' => $value->class_name,
                 'classTerm' => '学期'
             );
         }
