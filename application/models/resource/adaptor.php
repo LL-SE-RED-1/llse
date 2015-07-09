@@ -1,7 +1,7 @@
 <?php
 class Adaptor extends CI_Model{
 	static $currentYear = 2014;
-	static $currentTerm = TERM_SPRING;
+	static $currentTerm = TERM_AUTUMN;
 	function __construct()
     {
         parent::__construct();
@@ -28,13 +28,34 @@ class Adaptor extends CI_Model{
 	}
 	
 	function get_student_list($courseid){
-		$query = $this->adaptor->select('studentid')->where('courseid', $courseid)->from('course_student')->get();
-		return $query->result_array();
+        $this->load->model('r3/r3_curriculum_model');
+        
+        $result = $this->r3_curriculum_model->get_student_by_cid($courseid);
+        $ret = array();
+        for ($i = 0; $i != count($result); ++$i){
+            $ret[$i]["studentid"] = $result[$i]->student_id;
+        }
+        return $ret;
 	}
 	
 	function get_course_info($courseid){
-		$query = $this->adaptor->where('courseid', $courseid)->from('course')->get();
-		return $query->result_array();
+        $this->load->model("r2/search_model");
+        $info = $this->search_model->classinfo(array("class_id" => 31));
+
+        $ret = array();
+        for ($i = 0; $i != count($info); ++$i)
+        {
+            $ret[$i]["courseid"] = $info[$i]->class_id;
+            $ret[$i]["name"] = $info[$i]->course_name;
+            $ret[$i]["teacherid"] = $info[$i]->teacher_id;
+            switch ($info[$i]->season)
+            {
+            case 1:$ret[$i]["term"] = TERM_SPRING_SUMMER; break;
+            case 2:$ret[$i]["term"] = TERM_AUTUMN_WINTER; break;
+            }
+            $ret[$i]["year"] = $info[$i]->year;
+        }
+        return $ret;
 	}
 	
 	function get_course_list_by_year_and_term($userid, $year="", $term=""){
@@ -42,25 +63,40 @@ class Adaptor extends CI_Model{
 				$year = self::$currentYear;
 		if ($term == "")
 				$term = self::$currentTerm;
-		
-		$type = $this->_get_user_type();
+
+        $type = $this->_get_user_type($userid);
 		if ($type == ROLE_STUDENT) {
-			$query = $this->adaptor->join('course', 'course.courseid = course_student.courseid')->
-				where('studentid', $userid)->where('year', $year)->from('course_student')->get()->result_array();
-            /*
-			$query = $this->adaptor->query(
-			"select res_course.name, res_user.name as teacher, term, res_course.courseid
-			from res_course, res_course_student, res_user
-			where res_course.courseid = res_course_student.courseid
-			and res_course_student.studentid = $userid
-			and res_course.year = $year
-			and res_user.id = res_course.teacherid");
-            */
-		} else
-			$query = $this->adaptor->where('teacherid', $userid)->where('year', $year)->
-				from('course')->get()->result_array();
-				
+            $this->load->model("r3/r3_curriculum_model");
+            $info = $this->r3_curriculum_model->get_all_class($userid);
+
+            $query= array();
+            for ($i = 0; $i != count($info); ++$i)
+            {
+                $query[$i] = $this->get_course_info($info[$i]->class_id)[0];
+            }
+		} else {
+            $this->load->model("r2/search_model");
+            $info = $this->search_model->classinfo(array("teacher_id" => $userid));
+            $ret = array();
+            for ($i = 0; $i != count($info); ++$i)
+            {
+                $ret[$i]["courseid"] = $info[$i]->class_id;
+                $ret[$i]["name"] = $info[$i]->course_name;
+                $ret[$i]["teacherid"] = $info[$i]->teacher_id;
+                switch ($info[$i]->season)
+                {
+                case 1:$ret[$i]["term"] = TERM_SPRING_SUMMER; break;
+                case 2:$ret[$i]["term"] = TERM_AUTUMN_WINTER; break;
+                }
+                $ret[$i]["year"] = $info[$i]->year;
+            }
+
+			$query = &$ret;
+        }
+
 		$result = []; $i = 0;
+        var_dump(TERM_SPRING_SUMMER);
+        var_dump($query);
 		foreach ($query as $row){
 			if ($term == TERM_SPRING && ($row["term"] != TERM_SPRING && $row["term"] != TERM_SPRING_SUMMER))
 				continue;
@@ -85,45 +121,61 @@ class Adaptor extends CI_Model{
 	}
 	
 	function get_course_list($userid){
-		$type = $this->_get_user_type();
-		if ($type == 0)
-			$query = $this->adaptor->select('courseid')->where('studentid', $userid)->from('course_student')->get();
-		else
-			$query = $this->adaptor->select('courseid')->where('teacherid', $userid)->from('course')->get();
-		
-		return $query->result_array();
+        $type = $this->_get_user_type($userid);
+		if ($type == ROLE_STUDENT) {
+			$query = $this->adaptor->join('course', 'course.courseid = course_student.courseid')->
+				where('studentid', $userid)->where('year', $year)->from('course_student')->get()->result_array();
+            /*
+			$query = $this->adaptor->query(
+			"select res_course.name, res_user.name as teacher, term, res_course.courseid
+			from res_course, res_course_student, res_user
+			where res_course.courseid = res_course_student.courseid
+			and res_course_student.studentid = $userid
+			and res_course.year = $year
+			and res_user.id = res_course.teacherid");
+            */
+		} else {
+            
+            $this->load->model("r2/search_model");
+            $info = $this->search_model->classinfo(array("teacher_id" => 233233233));
+            var_dump($info);
+			$query = $this->adaptor->where('teacherid', $userid)->where('year', $year)->
+				from('course')->get()->result_array();
+            var_dump($query);
+        }
+
+		return $query;
 	}
 	
 	function get_user_info($userid){
-        $data[0]["type"] = $this->_get_user_type();
         $info = $this->_get_user_info($userid);
+        $data[0]["type"] = $this->_get_user_type($userid);
         $data[0]["name"] = $info["name"];
         $data[0]["id"] = $data[0]["number"] = $info["uid"];
         $data[0]["firstyear"] = 2012;
         return $data;
 	}
 
-    function _get_user_type(){
+    function _get_user_type($userid){
         $this->load->model("ims/ims_interface_model");
-        switch($this->session->userdata("user_type")){
-        case 1: 
-            return ROLE_STUDENT;
-            $info = $this->ims_interface_model->getStudent($userid);
-        case 2: 
-            return ROLE_TEACHER;
-            $info = $this->ims_interface_model->getTeacher($userid);
+        $type = $this->ims_interface_model->get_user($userid)["type"];
+        switch ($type){
+        case 1: return ROLE_STUDENT;
+        case 2: return ROLE_TEACHER;
         }
+        return -1;
     }
 
     function _get_user_info($userid){
         $this->load->model("ims/ims_interface_model");
-        switch($this->session->userdata("user_type")){
-        case 1: 
+        $type = $this->_get_user_type($userid);
+        switch($type){
+        case ROLE_STUDENT: 
             return $this->ims_interface_model->getStudent($userid);
-        case 2: 
-            return ROLE_TEACHER;
+        case ROLE_TEACHER: 
             return $this->ims_interface_model->getTeacher($userid);
         }
+        return array();
     }
 	
 }
