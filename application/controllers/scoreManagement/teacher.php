@@ -16,7 +16,7 @@ class Teacher extends CI_Controller {
      */
     public function clazz() {
         $this->load->model('r3/r3_class_model', 'r3class');
-        $clazz = $this->r3class->get_class_by_tid($this->session->uid);
+        $clazz = $this->r3class->get_class_by_tid($this->session->userdata('uid'));
         foreach($clazz as $index => $value) {
             $clazz[$index] = array(
                 'classId' => $value->class_id,
