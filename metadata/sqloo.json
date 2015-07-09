@@ -1,0 +1,188 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+{
+	"students": {
+		"attr": {
+			"sid": "char(10)",
+			"name": "varchar(20)",
+=======
+>>>>>>> master
+{	
+	"imsUser": {
+		"attr": {
+			"uid": "char(15) not null",
+			"password": "varchar(20) not null",
+			"type": "int not null",
+			"active": "bool not null"
+		},
+		"pk": ["uid"]
+	},
+	"imsStudent": {
+		"attr": {
+			"uid": "char(15) not null",
+			"name": "varchar(20) not null",
+			"sex": "char(20)",				
+			"birthday": "char(20)",
+<<<<<<< HEAD
+
+=======
+>>>>>>> 498f75124b7581ebbe10a6c5668a7459002bed3f
+>>>>>>> master
+			"email": "varchar(30)",
+			"phone": "char(11)",
+			"nation": "varchar(10)",
+			"college": "varchar(30)",
+			"department": "varchar(30)",
+<<<<<<< HEAD
+
+=======
+<<<<<<< HEAD
+			"grade": "int",
+			"class": "int"
+		},
+		"pk": ["sid"]
+	},
+	"teachers": {
+		"attr": {
+			"tid": "char(10)",
+			"name": "varchar(20)",
+			"email": "varchar(30)",
+=======
+>>>>>>> master
+			"grade": "int not null",
+			"class": "int not null"
+		},
+		"pk": ["uid"],
+		"fk": [{
+			"ky": "uid",
+			"tb": "imsUser",
+			"tb_ky": "uid"
+		}]
+	},
+	"imsTeacher": {
+		"attr": {
+			"uid": "char(10) not null",
+			"name": "varchar(20) not null",
+			"email": "varchar(30)",	
+			"sex": "char(20)",					
+			"birthday": "char(20)",
+<<<<<<< HEAD
+=======
+>>>>>>> 498f75124b7581ebbe10a6c5668a7459002bed3f
+>>>>>>> master
+			"phone": "char(11)",
+			"nation": "varchar(10)",
+			"college": "varchar(30)",
+			"department": "varchar(30)",
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+			"position": "varchar(10)",
+			"info": "varchar(100)"
+		},
+		"pk": ["tid"]
+	},
+	"courses": {
+	  "attr": {
+	    "cid": "char(10)",
+	    "name": "varchar(20)",
+	    "college": "varchar(30)",
+	    "department": "varchar(30)",
+=======
+>>>>>>> master
+			"education": "varchar(20)",
+			"position": "varchar(20)",
+			"info": "varchar(100)"
+		},
+		"pk": ["tid"],
+		"fk": [{
+			"ky": "uid",
+			"tb": "imsUser",
+			"tb_ky": "uid"
+		}]
+	},
+	"imsCourse": {
+	  "attr": {
+	    "cid": "char(10) not null",
+	    "name": "varchar(20) not null",
+	    "ctype": "int not null",
+	    "college": "varchar(30)",
+	    "department": "varchar(30)",
+	    "credit": "float not null",
+	    "semster": "int",
+>>>>>>> 498f75124b7581ebbe10a6c5668a7459002bed3f
+	    "info": "varchar(100)"
+	  },
+	  "pk": ["cid"]
+	},
+<<<<<<< HEAD
+	"tapplyc": {
+	  "attr": {
+	    "cid": "char(10)",
+	    "tid": "char(10)",
+	    "reason": "varchar(100)"
+	  },
+	  "pk": ["tid", "cid"]
+	}
+}
+=======
+	"imsCourseReq": {
+	  "attr": {
+	  	"rid": "char(10) not null",
+	    "cid": "char(10) not null",
+	    "uid": "char(10) not null",
+	    "reason": "varchar(100)",
+	    "state": "int not null",
+	    "name": "varchar(20)",
+	    "college": "varchar(30)",
+	    "department": "varchar(30)",
+	    "credit": "float not null",
+	    "info": "varchar(100)"
+	  },
+	  "pk": ["rid"],
+	  "fk": [{
+	  	"ky": "cid",
+		"tb": "imsCourse",
+		"tb_ky": "cid"
+	  },
+	  {
+	  	"ky": "uid",
+		"tb": "imsUser",
+		"tb_ky": "uid"
+	  }]
+	},
+	"imsPermission": {
+	  "attr": {
+	    "pid": "int not null auto_increment",
+        "stuPermi": "bool not null",
+        "teaPermi": "bool not null",
+        "description": "text not null"
+	  },
+	  "pk": ["type"]
+	},
+	"imsSysInfo": {
+	  "attr": {
+	  	"sid": "int not null auto_increment",
+	  	"semester": "varchar(20) not null",
+	  	"begin-time": "date not null",
+	  	"end-time": "date not null",
+	  	"active": "bool not null"
+	  },
+	  "pk": ["sid"]
+	},
+	"imsLog": {
+		"attr": {
+			"lid": "char(20) not null auto_increment",
+			"class": "varchar(10) not null",
+			"uid": "char(20) not null",
+			"ip": "unsigned int",
+			"time": "date not null",
+			"description": "varchar(100)"
+		}
+	}
+}
+<<<<<<< HEAD
+=======
+>>>>>>> 498f75124b7581ebbe10a6c5668a7459002bed3f
+>>>>>>> master
