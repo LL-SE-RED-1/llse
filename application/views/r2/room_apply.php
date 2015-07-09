@@ -40,14 +40,14 @@ $this->load->helper('url');
 	</head>
 	<body>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
-          <a class="navbar-brand">Project name</a></nav>
+          <a class="navbar-brand" href="<?php echo site_url('llse_welcome');?>">教务管理系统</a></nav>
 		<h1 class="page-header">修改教室</h1>
 		<form action="apply_classroom_form" method="post" id = "fo" class="col-xs-10 col-sm-6 placeholder">
 			   教室id:
 			   		<input type="int" name="classroom_id" value = "<?php echo $classroom_id;?>" class="form-control" readonly/>
   			<p>教室类型: 
 				<select class="form-control" value = "<?php echo $type;?>" name="type" onchange="__doPostBack('DropDownList1','')" language="javascript" id="DropDownList1" >
-					<option value="3" <?php if($type == 3) echo "selected = selected"?>>多媒体</option>
+					<option value="3" <?php if($type == 0) echo "selected = selected"?>>多媒体</option>
 					<option value="2" <?php if($type == 2) echo "selected = selected"?>>实验室</option>
 					<option value="1" <?php if($type == 1) echo "selected = selected"?>>普通教室</option></select>
 				校区: <select class="form-control" name="campus" value = "<?php echo $campus;?>" onchange="__doPostBack('DropDownList2','')" language="javascript" id="DropDownList2">

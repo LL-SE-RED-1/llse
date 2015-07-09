@@ -9,6 +9,7 @@ class teacher_apply extends CI_Controller{
 	public function index(){
 		$this->load->model('r2/t_apply_model');//load对应的model文件
 		$classid=$_GET['classid'];//获取要递交申请的教学班的classid
+		$data['tid']=$this->session->userdata['uid'];
 		if(empty($_POST['changeinfo']))//如果输入框中没有信息
 		{
 			$data['info']=$this->t_apply_model->get_info($classid);//通过classid获取该教学班信息保存在$data['info']
@@ -29,6 +30,7 @@ class teacher_apply extends CI_Controller{
 		$data['apply4']=$this->t_apply_model->get_apply4();//调用get_apply4函数获取已被删除的所有教学班信息
 		$data['apply5']=$this->t_apply_model->get_apply5();
 		$data['classroom']=$this->t_apply_model->get_classroom();
+		$data['teacher']=$this->t_apply_model->get_teacher();
 		$this->load->view('r2/teacher_menu',$data);//调取teacher_menu页面，把$data传递给它
 			}
 		$this->load->helper('url');
