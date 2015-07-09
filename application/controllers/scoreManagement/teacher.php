@@ -38,7 +38,7 @@ class Teacher extends CI_Controller {
             ));
     }
 
-    public function index($path=) {
+    public function index($path='studentScoreQuery') {
         $data['navi'] = 0;
         $data['uid'] = $this->session->userdata('uid');
         $data['type'] = $this->session->userdata('user_type');
