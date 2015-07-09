@@ -26,13 +26,14 @@ class apply_class extends CI_Controller{
 	   			echo "<script>alert('修改失败，请重新操作')</script>";
 	   }
 	   else{	//操作成功返回原界面
-	   		$this->load->helper('url');
-	   		echo "<script>alert('修改成功')</script>";
+	   		//$this->load->helper('url');
+	   		//echo "<script>alert('修改成功')</script>";
 	   		/*echo '<script>window.close();</script>';	//关闭该界面*/
-	   		$urls = base_url();
-	   		$url = "{$url}admin_apply";
-	   		echo $url;
-	   		Header("Location: $url");
+	   		//$urls = base_url();
+	   		//$url = "{$url}admin_apply";
+	   		//echo $url;
+	   		//Header("Location: $url");
+	   		redirect("r2/admin_apply");
 	   }
 	   $this->load->helper('url');
 	}

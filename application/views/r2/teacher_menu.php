@@ -50,18 +50,7 @@ $_SESSION['user_id']=null;
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<?php echo site_url('llse_welcome');?>">浙江大学教务管理系统</a><!--标头-->
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right"><!--导航按钮-->
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Help</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search..."><!--搜索输入框-->
-          </form>
+          <a class="navbar-brand" href="<?php echo site_url('llse_welcome');?>">教务管理系统</a><!--标头-->
         </div>
       </div>
     </nav>
@@ -71,29 +60,29 @@ $_SESSION['user_id']=null;
         <div class="col-sm-3 col-md-2 sidebar"><!--侧栏-->
           <ul class="nav nav-sidebar">
             <li class="active"><a href="teacher_menu">首页<span class="sr-only">(current)</span></a></li><!--被选中，连接回当前页-->
-            <li><a href="teacher_search?teacher_id=<?php echo $uid?>">查询打印</a></li><!--连接进入查询打印界面-->
+            <li><a href="teacher_search?teacher_id=<?php echo $tid?>">查询打印</a></li><!--连接进入查询打印界面-->
            
           </ul>
           
         </div> 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">陈越姥姥，您好！欢迎进入自动排课子系统</h1><!--欢迎标语-->
+          <h1 class="page-header">老师，您好！欢迎进入自动排课子系统</h1><!--欢迎标语-->
 		
           
         <!-- /.row --> <form action="teacher_menu" method="post" id = "fo"><!--当有按钮点击进入teacher_menu页面，方法是post-->
-		<div class="form-group">
+		<!--<div class="form-group">
 		
-			<label for="classname" class="col-sm-1 control-label">课程ID</label><!--提示输入课程ID-->
+			<label for="classname" class="col-sm-1 control-label">课程ID</label><提示输入课程ID>
 			<div class="col-sm-2">
 				<input type="int" class="form-control" id="courseid" name="courseid" required="" autofocus=""placeholder="课程ID"><!--输入框-->
-			</div> 
+			<!--</div> 
 			<div class="col-sm-6">
 			</div>
-			<input class="btn btn-info" type="submit" name="add" value="创建教学班"><!--创建教学班按钮-->
+			<input class="btn btn-info" type="submit" name="add" value="创建教学班"><创建教学班按钮>
 		
-		</div>
+		</div>-->
 		</form>
-		 <hr>
+		 
           <h2 class="sub-header">教学班列表</h2><!--副标题：教学班列表-->
 		 
           <div class="table-responsive"><!--表格-->

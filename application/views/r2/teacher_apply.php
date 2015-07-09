@@ -47,18 +47,7 @@ $this->load->helper('url');
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
          </button>
-          <a class="navbar-brand" href="<?php echo site_url('llse_welcome');?>">浙江大学教务管理系统</a><!--标头-->
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right"><!--导航按钮-->
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Help</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search..."><!--搜索输入框-->
-          </form>
+          <a class="navbar-brand" href="<?php echo site_url('llse_welcome');?>">教务管理系统</a><!--标头-->
         </div>
       </div>
     </nav>
@@ -74,7 +63,7 @@ $this->load->helper('url');
         </div>
         
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">陈越姥姥，您好！欢迎进入自动排课子系统</h1><!--欢迎标语-->
+          <h1 class="page-header">您好！欢迎进入自动排课子系统</h1><!--欢迎标语-->
 			<ul class="nav nav-tabs"><!--选项卡-->
 				<li role="presentation"><a href="teacher_menu">创建教学班/返回</a></li><!--返回首页-->
   				<li role="presentation" class="active"><a href="teacher_apply?classid=<?php echo $info['class_id'] ?>">调整申请</a></li><!--被选中，连接回当前页-->

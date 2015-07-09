@@ -60,10 +60,12 @@
                             <button class="ui button modify labeled icon button" type="submit">
                                 <i class="info icon"></i> 查看详情
                             </button>
+                            <?php if($type == 2 || $type == 4):?>
                             <div class="ui button teal labeled icon button">
                                 <i class="info icon" ></i> 
                                 <a href="<?php echo site_url('r2/teacher_menu'); ?>?course_id=<?php echo $item['course_id']?>" style="color: #FFF">开设教学班</a>
                             </div>
+                            <?php endif;?>
                         </td>
                     </form>
 

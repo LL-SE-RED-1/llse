@@ -16,7 +16,7 @@ class t_apply_model extends CI_Model{
 			$tid=$this->session->userdata['uid'];
 		$DB_default=$this->load->database('default', TRUE);//loadÊý¾Ý¿â
 		//Ö´ÐÐsqlÓï¾ä£¬²éÑ¯´ýÅÅ¿ÎµÄËùÓÐ½ÌÑ§°àÐÅÏ¢£¬½á¹û·µ»Ø¸ø$query
-		$query=$DB_default->query('SELECT * FROM apply INNER JOIN imsCourse USING (course_id) WHERE state=1 teacher_id=$tid');
+		$query=$DB_default->query("SELECT * FROM apply INNER JOIN imsCourse USING (course_id) WHERE state=1 and teacher_id='$tid'");
 		return $query->result_array();//·µ»Ø¼ÇÂ¼Êý×é
 		
 	}
@@ -24,7 +24,7 @@ class t_apply_model extends CI_Model{
 		$tid=$this->session->userdata['uid'];
 		$DB_default=$this->load->database('default', TRUE);//loadÊý¾Ý¿â
 		//Ö´ÐÐsqlÓï¾ä£¬²éÑ¯ÅÅ¿Î³É¹¦µÄËùÓÐ½ÌÑ§°àÐÅÏ¢£¬½á¹û·µ»Ø¸ø$query
-		$query=$DB_default->query('SELECT * FROM apply INNER JOIN classes USING (class_id) WHERE state=2 teacher_id=$tid');
+		$query=$DB_default->query("SELECT * FROM apply INNER JOIN classes USING (class_id,teacher_id) WHERE state=2 and teacher_id='$tid'");
 		return $query->result_array();//·µ»Ø¼ÇÂ¼Êý×é
 		
 	}
@@ -32,7 +32,7 @@ class t_apply_model extends CI_Model{
 		$tid=$this->session->userdata['uid'];
 		$DB_default=$this->load->database('default', TRUE);//loadÊý¾Ý¿â
 		//Ö´ÐÐsqlÓï¾ä£¬²éÑ¯ÅÅ¿Î³É¹¦µÄËùÓÐ½ÌÑ§°àÐÅÏ¢£¬½á¹û·µ»Ø¸ø$query
-		$query=$DB_default->query('SELECT * FROM apply INNER JOIN classes USING (class_id) WHERE state=5 teacher_id=$tid');
+		$query=$DB_default->query("SELECT * FROM apply INNER JOIN classes USING (class_id,teacher_id) WHERE state=5 and teacher_id='$tid'");
 		return $query->result_array();//·µ»Ø¼ÇÂ¼Êý×é
 		
 	}
@@ -40,20 +40,27 @@ class t_apply_model extends CI_Model{
 		$tid=$this->session->userdata['uid'];
 		$DB_default=$this->load->database('default', TRUE);//loadÊý¾Ý¿â
 		//Ö´ÐÐsqlÓï¾ä£¬²éÑ¯´ýµ÷ÕûµÄËùÓÐ½ÌÑ§°àÐÅÏ¢£¬½á¹û·µ»Ø¸ø$query
-		$query=$DB_default->query('SELECT * FROM apply INNER JOIN classes USING (class_id) WHERE state=3 teacher_id=$tid');
+		$query=$DB_default->query("SELECT * FROM apply INNER JOIN classes USING (class_id,teacher_id) WHERE state=3 and teacher_id='$tid'");
 		return $query->result_array();//·µ»Ø¼ÇÂ¼Êý×é
 	}
 	public function get_apply4(){//²éÑ¯ÒÑ±»É¾³ýµÄËùÓÐ½ÌÑ§°àÐÅÏ¢
 		$tid=$this->session->userdata['uid'];
 		$DB_default=$this->load->database('default', TRUE);//loadÊý¾Ý¿â
 		//Ö´ÐÐsqlÓï¾ä£¬²éÑ¯ÒÑ±»É¾³ýµÄËùÓÐ½ÌÑ§°àÐÅÏ¢£¬½á¹û·µ»Ø¸ø$query
-		$query=$DB_default->query('SELECT * FROM apply INNER JOIN imsCourse USING (course_id) WHERE state=4 teacher_id=$tid');
+		$query=$DB_default->query("SELECT * FROM apply INNER JOIN imsCourse USING (course_id) WHERE state=4 and teacher_id='$tid'");
 		return $query->result_array();//·µ»Ø¼ÇÂ¼Êý×é
 	}
 	public function get_classroom()
 	{
 		$DB_default=$this->load->database('default', TRUE);
 		$query=$DB_default->query('SELECT * FROM classroom');
+		return $query->result_array();
+	}
+	public function get_teacher()
+	{
+		$tid=$this->session->userdata['uid'];
+		$DB_default=$this->load->database('default', TRUE);
+		$query=$DB_default->query("SELECT * FROM imsTeacher where uid='$tid'");
 		return $query->result_array();
 	}
 	public function add_manapply($classid){//Ìí¼Ó½ÌÑ§°à
