@@ -30,6 +30,17 @@ class Teacher extends CI_Controller {
             ));
     }
 
+    public function index() {
+        $data['navi'] = 0;
+        $data['uid'] = $this->session->userdata('uid');
+        $data['type'] = $this->session->userdata('user_type');
+
+        $this->load->view('template/header');
+        $this->load->view('template/navigator', $data);
+        $this->load->view('template/side_navi', $data);
+        $this->load->view('r7')
+    }
+
     public function getTeacherCourses() {
         $this->scoreCommon->success($this->fake->getTeachersForCourse($this->input->get('courseId')));
     }
