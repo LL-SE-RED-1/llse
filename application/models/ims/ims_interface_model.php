@@ -63,6 +63,13 @@ class Ims_interface_model extends CI_Model
 		return $course;
 	}
 
+	public function get_user($uid)
+	{
+		$this->load->model('ims/user_model');
+		$user = $this->user_model->get_user($uid);
+		return $user;
+	}
+
 	//$array = ('college' => '计算机学院');
 	public function search_course($info) {
 		$this->load->model('ims/search_course_model');
