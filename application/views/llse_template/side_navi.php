@@ -17,7 +17,7 @@ padding-top: 5%;
       <a href="<?php echo site_url('resource/student');?>">课程资源子系统</a>
   </li>
   <li>
-      <a href="<?php echo site_url('ims/ims_welcome');?>">在线考试子系统</a>
+      <a href="<?php echo site_url('r6_C/welcome/welc');?>">在线考试子系统</a>
   </li>
    <li>
       <a href="<?php echo site_url('ims/ims_welcome');?>">成绩管理子系统</a>
