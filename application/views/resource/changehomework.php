@@ -22,7 +22,7 @@ input[type="text"], textarea{
 	<col width="25%"><col width="75%">
 	<tr><th>作业名称</th><td><input type="text" name="name" value="<?=$name?>" placeholder="YYYY-MM-DD HH:mm:ss"></td></tr>
 	<tr><th>开始时间</th><td>
-        <input type='text' id='datetimepicker4' name="starttime" value="<?=$starttime?>/>
+        <input type='text' id='datetimepicker4' name="starttime" value="<?=$starttime?>"/>
         <script type="text/javascript">
             $(function () {
                 $('#datetimepicker4').datetimepicker({
@@ -32,7 +32,7 @@ input[type="text"], textarea{
         </script>
         </td></th>
 	<tr><th>结束时间</th><td>
-        <input type='text' id='datetimepicker5' name="endtime" value="<?=$endtime?>/>
+        <input type='text' id='datetimepicker5' name="endtime" value="<?=$endtime?>"/>
         <script type="text/javascript">
             $(function () {
                 $('#datetimepicker5').datetimepicker({

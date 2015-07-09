@@ -12,7 +12,7 @@ $(document).ready(function(){
 		var fileid = +$(this).attr("data-fileid"),
 			courseid = +$(this).attr("data-courseid"),
 			role = $(this).attr("data-role"),
-			p = $(this).parents(".row");
+			p = $(this).parents(".trow");
 		$.post("<?=site_url()?>/resource" + role + "/deletecoursefile/" + courseid + "/" + fileid,
 			function(data){
 				p.hide(500);
