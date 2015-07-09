@@ -11,6 +11,7 @@ class Search_student_model extends CI_Model {
 		$query = $this->db->get_where('imsStudent', $info);
 		return $query->result_array();
 	}
+	
 	public function searchAll() {
 		//返回所有信息
 		$query = $this->db->get('imsStudent');

@@ -66,6 +66,10 @@ class Ims_add_teacher extends CI_Controller {
 		if ($func == 0) {
 			//添加用户
 			$ret = $this->add_teacher_model->writeInfo($info);
+			if($ret == 0){
+				$this->load->model('r2/schedule_model');
+				$this->schedule_model->add_sche($a['uid']);
+			}
 		} else {
 			//修改用户
 			$ret = $this->add_teacher_model->modifyInfo($info);
@@ -77,6 +81,10 @@ class Ims_add_teacher extends CI_Controller {
 		//删除用户
 		$info = array('uid' => $a['uid']);
 		$ret = $this->add_teacher_model->deleteInfo($info);
+		if($ret == 0){
+			$this->load->model('r2/schedule_model');
+			$this->schedule_model->delete_sche($a['uid']);
+		}
 		return $ret;
 	}
 

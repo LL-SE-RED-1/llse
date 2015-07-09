@@ -17,7 +17,7 @@ class Ims_interface_model extends CI_Model
 	public function get_sys_info()
 	{
 		$this->load->model('ims/sys_info_model');
-		$sys_info = $this->sys_info_mode->get_sys_info();
+		$sys_info = $this->sys_info_model->get_sys_info();
 		return $sys_info;
 	}
 
@@ -61,6 +61,37 @@ class Ims_interface_model extends CI_Model
 		$this->load->model('ims/add_course_model');
 		$course = $this->add_course_model->readInfo($courseID);
 		return $course;
+	}
+
+	//$array = ('college' => '计算机学院');
+	public function search_course($info) {
+		$this->load->model('ims/search_course_model');
+		if($info == NULL)
+			$courses = $this->search_course_model->searchAll();
+		else
+			$courses = $this->search_course_model->search($info);
+		
+		return $courses;
+	}
+
+	public function search_student($info){
+		$this->load->model('ims/search_student_model');
+		if($info == NULL)
+			$studets = $this->search_student_model->searchAll();
+		else
+			$students = $this->search_student_model->search($info);
+
+		return $students;
+	}
+
+	public function search_teacher($info){
+		$this->load->model('ims/search_teacher_model');
+		if($info == NULL)
+			$teachers = $this->search_teacher_model->searchAll();
+		else
+			$teachers = $this->search_teacher_model->search($info);
+
+		return $teachers;
 	}
 
 }

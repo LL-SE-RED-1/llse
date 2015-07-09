@@ -70,6 +70,8 @@ class Ims_add_course extends CI_Controller {
 			'classroom' => ($a['classroom'] == NULL) ? NULL : $a['classroom'],
 			'etype' => ($a['etype'] == NULL) ? NULL : $a['etype'],
 			'capacity' => ($a['capacity'] == NULL) ? NULL : $a['capacity'],
+			'course_type' => ($a['course_type'] == NULL) ? 0 : $a['course_type'],
+			'campus' => ($a['campus'] == NULL) ? 1 : $a['campus'],
 			'info' => ($a['info'] == NULL) ? NULL : $a['info'],
 		);
 		if ($func == 0) {
