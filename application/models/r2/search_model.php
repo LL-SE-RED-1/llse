@@ -21,7 +21,7 @@ class Search_model extends CI_Model {
    // $query=$this->db->get_where('classes',array('teacher_id' =>$_POST["teacher_id"]));
     $query=$this->db->query("select course_name,sche from classes where teacher_name='$tc_name'");//选择出给定的教师名
 
-    return $query->result_array();
+    return $query;
   }
   public function classinfo($info){
         $this->load->database();
@@ -36,6 +36,7 @@ class Search_model extends CI_Model {
     $this->load->database();
     $query=$this->db->query("delete from search");//选择出给定的教师名
     $campus=$_POST["campus"];
+    $campus_a = 0;
     switch($campus){//校区与数字的转化
       case "紫金港":$campus_a=1; break;
       case "玉泉":$campus_a=2;break;
@@ -46,8 +47,9 @@ class Search_model extends CI_Model {
     $building_a=$_POST["building"];
     $room_a=$_POST["room"];
     $query=$this->db->query("select * from classroom where campus=$campus_a and building='$building_a' and room=$room_a")->row();//选出给定的教室
-    $data=$query->classroom_id;
-    $classes=$this->db->query("select * from classes")->result_array();
+    if($query){
+       $data=$query->classroom_id;
+      $classes=$this->db->query("select * from classes")->result_array();
    // foreach ($data as $data_item){
       foreach ($classes as $classes_item){ 
         $cl_team=$classes_item['classroom'];
@@ -63,6 +65,8 @@ class Search_model extends CI_Model {
           }
         }
       }
+    }
+   
    // }
 
 
