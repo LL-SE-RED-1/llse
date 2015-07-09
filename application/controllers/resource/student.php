@@ -188,7 +188,7 @@ class Student extends CI_Controller {
 			$fileinfo = $this->datamodel->get_file_detail($filelist[$i]["fileid"]);
 			$data["data"][$student_count]["filesize"] = $fileinfo[0]["filesize"];
 			$data["data"][$student_count]["download"] = $filelist[$i]["download"];
-            $data["data"][$teacher_count]["istop"] = $filelist[$i]["expiration"] >  date('Y-m-d H:i:s', time());
+            $data["data"][$student_count]["istop"] = $filelist[$i]["expiration"] >  date('Y-m-d H:i:s', time());
 			++$student_count;			
 		}
 		usort($data['data'], function($a, $b){

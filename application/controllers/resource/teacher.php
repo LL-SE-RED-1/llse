@@ -661,7 +661,7 @@ class Teacher extends CI_Controller {
 		if (!$this->datamodel->is_teacher_has_course($this->id, $courseid))
             show_404();
         
-        redirect("teacher/filelist_all/$courseid");
+        redirect("resource/teacher/filelist_all/$courseid");
     }
     
     /********************* canceling set top for teacher controller model **************************/
@@ -679,7 +679,7 @@ class Teacher extends CI_Controller {
 		if (!$this->datamodel->is_teacher_has_course($this->id, $courseid))
             show_404();
         
-        redirect("teacher/filelist_all/$courseid");
+        redirect("resource/teacher/filelist_all/$courseid");
     }
 
 	public function uploadcoursefile($courseid){
