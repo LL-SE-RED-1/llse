@@ -34,7 +34,7 @@ class Teacher extends CI_Controller {
         $data['navi'] = 0;
         $data['uid'] = $this->session->userdata('uid');
         $data['type'] = $this->session->userdata('user_type');
-        $data['path'] = $path
+        $data['path'] = $path;
 
         $this->load->view('template/header');
         $this->load->view('template/navigator', $data);
