@@ -30,15 +30,16 @@ class Teacher extends CI_Controller {
             ));
     }
 
-    public function index() {
+    public function index($path) {
         $data['navi'] = 0;
         $data['uid'] = $this->session->userdata('uid');
         $data['type'] = $this->session->userdata('user_type');
+        $data['path'] = $path
 
         $this->load->view('template/header');
         $this->load->view('template/navigator', $data);
-        $this->load->view('template/side_navi', $data);
-        $this->load->view('r7/teacher');
+        $this->load->view('r7/side_navi', $data);
+        $this->load->view('r7/teacher', $data);
     }
 
     public function getTeacherCourses() {
