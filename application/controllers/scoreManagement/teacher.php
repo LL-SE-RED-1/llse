@@ -38,7 +38,7 @@ class Teacher extends CI_Controller {
         $this->load->view('template/header');
         $this->load->view('template/navigator', $data);
         $this->load->view('template/side_navi', $data);
-        $this->load->view('r7')
+        $this->load->view('r7');
     }
 
     public function getTeacherCourses() {
