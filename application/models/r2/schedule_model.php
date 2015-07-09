@@ -1,7 +1,7 @@
 <?php
-class Schedual_model extends CI_Model {
+class Schedule_model extends CI_Model {
 
-  function Schedual_model()
+  function Schedule_model()
   {
     parent::__construct();
   }

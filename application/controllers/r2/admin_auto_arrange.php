@@ -5,6 +5,7 @@ class Admin_auto_arrange extends CI_Controller{
 /*构造函数*/
 	function Admin_auto_arrange(){
 		parent::__construct();
+    date_default_timezone_set("Asia/Shanghai");
 	}	
 
 /*初始化界面*/
@@ -65,9 +66,10 @@ class Admin_auto_arrange extends CI_Controller{
       /*获取系统信息*/
        //$tmp = now();
       $datestring = "%Y:%m:%d";
-      $time = time();
+      //$time = time();
 
-       $tmpdate = explode(":",mdate($datestring, $time));
+       //$tmpdate = explode(":",mdate($datestring, $time));
+      $tmpdate = explode(":",mdate($datestring));
        
        //$tmpdate = explode("-",date('Y-m-d H:i:s'));
        $year=$tmpdate[0];
