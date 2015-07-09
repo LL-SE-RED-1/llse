@@ -11,7 +11,6 @@ class Adaptor extends CI_Model{
 	function get_current_year(){
         //$this->load->model('ims/ims_interface_model');
         //$info = $this->ims_interface_model->get_sys_info();
-        //var_dump($info);
 		return self::$currentYear;
 	}
 	
@@ -98,7 +97,6 @@ class Adaptor extends CI_Model{
 	function get_user_info($userid){
         $data[0]["type"] = $this->_get_user_type();
         $info = $this->_get_user_info($userid);
-        var_dump($info);
         $data[0]["name"] = $info["name"];
         $data[0]["id"] = $data[0]["number"] = $info["uid"];
         $data[0]["firstyear"] = 2012;

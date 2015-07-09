@@ -71,7 +71,7 @@
   <div class="m-tmain">
     <div class="m-tbody table-striped">
   	<?php $i = 0;foreach($work as $item): $i++;?>
-			<div class="trow" data-homeworkid="<?=$item["id"]?>">
+			<div class="trow row" data-homeworkid="<?=$item["id"]?>">
 				<div>
 				<?php if (isset($item["uploadedfile"]["fileid"]) || $item["score"] != NULL):?>
 					<span class="glyphicon glyphicon-ok-sign"></span>
