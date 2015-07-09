@@ -15,7 +15,7 @@ class Student extends CI_Controller {
         if ($type == 2)
             redirect("resource/teacher");
         else
-            redirect("");
+            redirect("llse_welcome");
     }
 	/**
 	*学生模块索引页 根据年份学期 选择一门所修课程

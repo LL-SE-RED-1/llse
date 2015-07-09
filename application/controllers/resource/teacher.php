@@ -30,7 +30,7 @@ class Teacher extends CI_Controller {
         if ($type == 1)
             redirect("resource/student");
         else
-            redirect("");
+            redirect("llse_welcome");
     }
 
 	/********************* index page for teacher controller model **************************/
