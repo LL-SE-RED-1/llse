@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>成绩修正申请审批</title>
+    <link rel ="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  </head>
+  <body>
+	<div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-sm-10 col-sm-offset-2 main">
+          <h1 class="page-header">成绩修正申请审批</h1>
+    
+          <p id="info" style="display:none">暂时没有需要审批的成绩修改申请</p>
+          <div id="table" class="table-responsive" style="display:none">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>课程名称</th>
+                  <th>申请教师</th>
+                  <th>学生姓名</th>
+                  <th>学生学号</th>
+                  <th>原成绩</th>
+                  <th>新成绩</th>
+                  <th>修改理由</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody"> </tbody>
+            </table>
+            <button id="btn" type="button" class="btn btn-primary">确认提交</button>
+          </div>
+        </div>
+      </div>
+  </div>
+    <script src="assets/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/Approval.js"></script>
+    <script src="js/Network.js"></script>
+  </body>
+</html>

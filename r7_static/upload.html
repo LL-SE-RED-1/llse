@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>成绩上传</title>
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/handsontable.full.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/network.js"></script>
+    <script>var classId;var baseURL="http://se.hlyue.com/index.php";var frontURL="http://se.hlyue.com/front";</script>
+    <script src="js/upload.js"></script>
+    
+    
+    <link rel="stylesheet" media="screen" href="css/handsontable.full.css">
+    <!-- Bootstrap core CSS -->
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" rel="stylesheet">
+  </head>
+
+  <body>
+        <div class="col-sm-9 col-sm-offset-3 col-sm-10 col-sm-offset-2 main">
+          <h1 class="page-header">成绩上传与编辑</h1>
+          <div class="row placeholders">
+             <p id='console1'>this is console1</p>
+              <input type="checkbox" name="autosave" id="autosave" checked="checked" autocomplete="off">"autosave"</input>
+                <div class="handsontable" id="worksheet"></div>
+                <div>
+                    </br>
+            <div class="row">
+                 <div class="col-md-3"><div class="btn btn-primary" style="visibility: hidden" name="import" id="importScores">导入在线成绩</div></div>
+                 <div class="col-md-6"><div class="btn btn-primary" name="downloadExcel" id="downloadExcel">下载空Excel表格</div></div>
+                 <div class="col-md-3"><div class="btn btn-primary" name="save" id="save">提交成绩</div></div>
+            </div>
+                <form id="frm1" name="frm1" class="form form-control" enctype="multipart/form-data" action="/scoreManagement/score/uploadExcel" method="post">
+                    <input id="classId" type="hidden" name="classId" value=123/>
+                    <div class="row">
+                    <input id="uploadFile" type="file" accept=".xls,.xlsx"/>
+                    <input class="btn btn-primary" id="excel" name="excel" type="submit" value="从Excel导入"/></div>
+                </form>
+          </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+<script>
+//上传Excel
+$("#frm1").submit(function(event)
+{
+  event.preventDefault();
+  var formObj = $(this);
+  var formURL = baseURL+formObj.attr("action");
+  var scores;
+  var file_data = document.getElementById("uploadFile").files[0];    
+  var formData = new FormData();
+  formData.append("classId",classId);
+  formData.append("excel",file_data);
+  console.log(formData);
+   
+  $.ajax({
+    processData: false,
+    contentType: false,
+    url: formURL,
+    method: 'POST',
+    data: formData})//提交表单数据
+    .done(function(res)
+      {
+         console.log(res.code);
+         if(res.code==1) alert("上传失败！"+res.msg);
+         else {alert("上传成功！");loadExcel(res.data);}
+      });
+}
+);
+</script>
+
+<script>
+  //变量定义     
+  var
+    $ = function(id) {
+        return document.getElementById(id);
+    },
+    container = $('worksheet'),
+    console1 = $('console1'),
+    autosave = $('autosave'),
+    load = $('load'),
+    save = $('save'),
+    autosaveNotification,
+    gradeValidator,
+    scoreValidator,
+    idValidator,
+    gradeRenderer,
+    scoreRenderer,
+    gradeInvalidFlag,
+    scoreInvalidFlag,
+    idInvalidFlag,
+    worksheet;
+    
+  //绩点列背景设置为灰色，并根据成绩计算其值
+  gradeRenderer = function (instance, td, row, col, prop, value, cellProperties) {
+    td.style.background = '#EEE';
+    var a,b;
+    a = instance.getDataAtCell(row, 2);
+    b = instance.getDataAtCell(row, 4);
+    if(b=="false") {//不缺考
+      cellProperties.validator=gradeValidator;
+      var g = instance.getDataAtCell(row,col-1).toString();
+      g=calculateGrade(g,"false");//计算绩点
+    }
+    else if(b === "" || b=="true") {//缺考绩点置为0
+      td.innerHTML = 0;
+      value=0;
+      cellProperties.validator=null;
+    }
+    Handsontable.renderers.TextRenderer.apply(this, arguments);
+  };
+  Handsontable.renderers.registerRenderer('gradeRenderer', gradeRenderer);   
+  
+  //缺考则成绩列背景设置为灰色，并且只读
+  scoreRenderer = function (instance, td, row, col, prop, value, cellProperties) {
+    var isA;
+    isA = instance.getDataAtCell(row, 4);
+    if(isA=="true") {//缺考
+      cellProperties.readOnly=true;//只读
+      td.style.background = '#EEE';//背景灰色
+      td.innerText=0;
+      value=0;
+      cellProperties.validator=null;
+    }
+    else{//不缺考
+      cellProperties.readOnly=false;//可编辑
+      cellProperties.validator=scoreValidator;
+    }
+    Handsontable.renderers.TextRenderer.apply(this, arguments);
+  };
+  Handsontable.renderers.registerRenderer('scoreRenderer', scoreRenderer); 
+  
+    //新建一个表
+  worksheet = new Handsontable(container, {
+    //表数据设置
+    // data: scores,
+    dataSchema: {studentId: null, studentName: null, score: null, grade: null, isAbsent: null},
+    //表头
+    colHeaders: ['学号', '姓名', '成绩', '绩点','是否缺考'],
+    //列数据定义
+    columns: [
+        {data: 'studentId',type:'numeric',validator: idValidator,allowInvalid:true},//暂时没有检查id位数
+        {data: 'studentName'},//姓名
+        {data: 'score',type:'numeric',format:'0',renderer:scoreRenderer,validator: scoreValidator,allowInvalid:true},//成绩
+        {data: 'grade',type:'numeric',renderer: gradeRenderer,allowInvalid:true,format:'0,0.0',readOnly:true},//绩点自动计算，只读
+        {data: 'isAbsent',editor: 'select',selectOptions:["true","false"],allowInvalid:false }//是否缺考
+      ],
+      startRows:1,
+    contextMenu: true,//包含默认右键菜单
+    fillHandle: true,//可以使用drag-down 和 copy-down
+    stretchH: 'all',//strech方式显示
+    //修改成绩的时候计算绩点
+    beforeChange: function(changes, source) {
+      console.log(source);
+      if(source === 'grade') return;
+
+      for(i=0;i<changes.length;i++){
+        console.log(changes[i]);
+        //修改了成绩
+        if(changes[i][1]=="score"){
+          var g = changes[i][3].toString();
+          console1.innerText="score and grade changed.";
+          g=calculateGrade(g,"false");//计算绩点
+          worksheet.setDataAtCell(changes[i][0],3,g,'grade');//显示绩点
+        }
+        //修改了缺考情况
+        if(changes[i][1]=="isAbsent"&&changes[i][3]=='true'){
+          worksheet.setDataAtCell(changes[i][0],2,0,'grade'); //缺考则成绩置为0
+          worksheet.setDataAtCell(changes[i][0],3,0,'grade'); //缺考则绩点置为0
+        }
+      }
+     return;
+   }
+    }
+  );
+  //Validator用于检验合法性，不合法成绩、id要高亮
+  scoreValidator = function(value,callback) {
+      setTimeout(function(){
+        if(/^([0-9]{1,2}|100)$/.test(value) ){
+          callback(true);
+          scoreInvalidFlag=false;
+        }
+        else{
+          callback(false);
+          scoreInvalidFlag=true;
+          console1.innerText="Invalid score";
+        }
+      },1000);
+  };
+  idValidator = function(value,callback) {
+    console1.innerText="called";
+      setTimeout(function(){
+        if(/[0-9]/.test(value) ){
+          console1.innerText="value";
+          callback(true);
+          idInvalidFlag=false;
+        }
+        else{
+          callback(false);
+          idInvalidFlag=true;
+          console1.innerText="Invalid id";
+        }
+      },1000);
+  };
+  
+    //提交成绩
+  Handsontable.Dom.addEvent(save, 'click', function() {
+    if(!gradeInvalidFlag&!scoreInvalidFlag&!idInvalidFlag){// 检查非法项
+    //从表格获取数据
+    var data = worksheet.getData();
+    var res=[];
+    var col=['studentId','studentName','score','grade','isAbsent'];
+     for (var i = 0, ilen = data.length; i < ilen; i++) {
+      var row={};
+      for (var j = 0; j < 5; j++) {
+        row[col[j]]=worksheet.getDataAtCell(i,j);
+      }
+      res.push(row);
+     }
+    console.log(res);
+    //发送给后端
+//      $.ajax({
+//          url:baseURL+'/scoreManagement/score/commit',//'/scoreManagement/score/commit?classId'+classId,
+//          method:'post',
+//          data:{classId:classId,score: JSON.stringify(res)}})
+        API.post('/scoreManagement/score/commit',{classId:classId,score: JSON.stringify(res)},function(res){
+            console.log(res.code);
+            if(res.code==1) alert("成绩提交失败！"+res.msg);
+            else alert("成绩提交成功！");
+          });
+      }
+    else {
+      alert("请检查成绩单中的非法项。");
+    }
+  });
+
+  //自动保存的复选框
+  Handsontable.Dom.addEvent(autosave, 'click', function() {
+    if (autosave.checked) {
+      console1.innerText = 'Changes will be autosaved';
+    }
+    else {
+      console1.innerText ='Changes will not be autosaved';
+    }
+  });
+
+  //载入json数据到data，检查合法性并显示
+  var loadExcel = function(data){  
+  console.log(data)  ;
+    worksheet.loadData(data);
+    worksheet.validateCells(function() {worksheet.render()});
+    console1.innerText="Data loaded";
+  };
+          
+</script>
+    
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  </body>
+</html>
