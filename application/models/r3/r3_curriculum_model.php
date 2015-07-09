@@ -28,7 +28,7 @@
 	class r3_Curriculum_model extends CI_Model{
 		//通过学生id返回他选上的所有教学班
 		public function get_all_class($id){
-			$res = $this->db->select('course_id, class_name, class_time')
+			$res = $this->db->select('class_id, course_id, class_name, class_time')
 				->from('curriculum') //从curriculum表中取数据
 				->where('student_id ', $id) //匹配学生id
 				->order_by('class_time', 'asc') //结果以上课时间排序

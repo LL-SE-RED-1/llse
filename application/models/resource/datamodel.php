@@ -447,7 +447,7 @@ class DataModel extends CI_Model
 	///<returns> return true or false
 	function is_teacher_has_course($teacherid, $courseid)
 	{
-		$this->load->model("adaptor");
+		$this->load->model("resource/adaptor");
 		$courses = $this->adaptor->get_course_list($teacherid);
 		for ($i = 0; $i != count($courses); ++$i)
 		{
@@ -465,7 +465,7 @@ class DataModel extends CI_Model
 	///<returns> return true or false
 	function is_student_has_course($studentid, $courseid)
 	{
-		$this->load->model("adaptor");
+		$this->load->model("resource/adaptor");
 		$courses = $this->adaptor->get_course_list($studentid);
 		for ($i = 0; $i != count($courses); ++$i)
 		{

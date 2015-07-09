@@ -396,8 +396,8 @@ class Student extends CI_Controller {
 	*@return null
 	*/
 	public function uploadcoursefile($courseid) {
-		$this->load->model("datamodel");
-		$this->load->model("filemodel");
+		$this->load->model("resource/datamodel");
+		$this->load->model("resource/filemodel");
 		//validation
 		if (!$this->datamodel->is_student_has_course($this->id, $courseid)){
 			$this->output->set_output("error");
@@ -415,7 +415,7 @@ class Student extends CI_Controller {
 	*/
 	public function uploadstudenthomework() {
 		$homeworkid = $this->input->post("homeworkid");
-		$this->load->model("datamodel");
+		$this->load->model("resource/datamodel");
 		
 		//validation
 		if (!$this->datamodel->is_student_has_homework($this->id, $homeworkid)){
@@ -423,7 +423,7 @@ class Student extends CI_Controller {
 			return;	
 		}
 			
-		$this->load->model("filemodel");
+		$this->load->model("resource/filemodel");
 		$fileid = $this->filemodel->upload_homework_student($this->id, $homeworkid);
 		$detail = $this->datamodel->get_homework_student($this->id, $homeworkid);
 		$this->output->set_output("success");
@@ -436,8 +436,8 @@ class Student extends CI_Controller {
 	*/
 	public function downloadcoursefile($fileid, $courseid) {
 		$this->load->helper("download");
-		$this->load->model("datamodel");
-		$this->load->model("filemodel");
+		$this->load->model("resource/datamodel");
+		$this->load->model("resource/filemodel");
 		//validation
 		if (!$this->datamodel->is_student_has_course($this->id, $courseid))
 			show_404();
@@ -462,8 +462,8 @@ class Student extends CI_Controller {
 	*/
 	public function downloadhomeworkfile($fileid, $homeworkid) {
 		$this->load->helper("download");
-		$this->load->model("datamodel");
-		$this->load->model("filemodel");
+		$this->load->model("resource/datamodel");
+		$this->load->model("resource/filemodel");
 		//得到filename
 		$fileinfo = $this->datamodel->get_homework_file($homeworkid);
 		for ($i = 0; $i < count($fileinfo); ++$i)
@@ -486,8 +486,8 @@ class Student extends CI_Controller {
 	*/
 	public function downloadstudenthomework($studentid, $homeworkid) {
 		$this->load->helper("download");
-		$this->load->model("datamodel");
-		$this->load->model("filemodel");
+		$this->load->model("resource/datamodel");
+		$this->load->model("resource/filemodel");
 		//validation
 		if (!$this->datamodel->is_student_has_homework($this->id, $homeworkid))
 			show_404();

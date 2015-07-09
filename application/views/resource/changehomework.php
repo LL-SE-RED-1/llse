@@ -21,8 +21,25 @@ input[type="text"], textarea{
 	<table class="table table-striped">
 	<col width="25%"><col width="75%">
 	<tr><th>作业名称</th><td><input type="text" name="name" value="<?=$name?>" placeholder="YYYY-MM-DD HH:mm:ss"></td></tr>
-	<tr><th>开始时间</th><td><input type="text" name="starttime" value="<?=$starttime?>" placeholder="YYYY-MM-DD HH:mm:ss"></td></tr>
-	<tr><th>结束时间</th><td><input type="text" name="endtime" value="<?=$endtime?>" placeholder="YYYY-MM-DD HH:mm:ss"></td></tr>
+	<tr><th>开始时间</th><td>
+        <input type='text' id='datetimepicker4' name="starttime" value="<?=$starttime?>/>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker4').datetimepicker({
+                format:"YYYY-MM-DD HH:mm:ss"
+                });
+            });
+        </script>
+        </td></th>
+	<tr><th>结束时间</th><td>
+        <input type='text' id='datetimepicker5' name="endtime" value="<?=$endtime?>/>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker5').datetimepicker({
+                    format:"YYYY-MM-DD HH:mm:ss"
+                });
+            });
+        </script>
 	<tr><th>相关资料</th>
 		<td>
 		<?php foreach($related as $item): ?>

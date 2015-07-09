@@ -470,6 +470,7 @@ class Teacher extends CI_Controller {
 		$data["course_name"] = $courseinfo[0]["name"];
 		$data["courseid"] = $courseid;
 		$stulist = $this->adaptor->get_student_list($courseid);
+        $data["data"] = array();
 		for ($i = 0; $i < count($stulist); $i++)
 		{
 			$data["data"][$i]["stuid"] = $stulist[$i]["studentid"];
@@ -654,7 +655,7 @@ class Teacher extends CI_Controller {
 	///<returns> true </returns>
     public function settop($courseid, $fileid){
         $this->load->helper("url");
-        $this->load->model("datamodel");
+        $this->load->model("resource/datamodel");
         $this->datamodel->set_top_course_file($courseid, $fileid);
        
 		if (!$this->datamodel->is_teacher_has_course($this->id, $courseid))
@@ -672,7 +673,7 @@ class Teacher extends CI_Controller {
 	///<returns> true </returns>
     public function canceltop($courseid, $fileid){
         $this->load->helper("url");
-        $this->load->model("datamodel");
+        $this->load->model("resource/datamodel");
         $this->datamodel->cancel_top_course_file($courseid, $fileid);
        
 		if (!$this->datamodel->is_teacher_has_course($this->id, $courseid))
@@ -682,8 +683,8 @@ class Teacher extends CI_Controller {
     }
 
 	public function uploadcoursefile($courseid){
-		$this->load->model("datamodel");
-		$this->load->model("filemodel");
+		$this->load->model("resource/datamodel");
+		$this->load->model("resource/filemodel");
 		//validation
 		if (!$this->datamodel->is_teacher_has_course($this->id, $courseid)){
 			$this->output->set_output("error");
@@ -697,8 +698,8 @@ class Teacher extends CI_Controller {
 	
 	public function uploadhomeworkfile(){
 		$homeworkid = $this->input->post("homeworkid");
-		$this->load->model("datamodel");
-		$this->load->model("filemodel");
+		$this->load->model("resource/datamodel");
+		$this->load->model("resource/filemodel");
 		//validation
 		if (!$this->datamodel->is_teacher_has_homework($this->id, $homeworkid)){
 			$this->output->set_output("error");
@@ -711,8 +712,8 @@ class Teacher extends CI_Controller {
 	}
 	
 	public function uploadfile(){
-		$this->load->model("filemodel");
-		$this->load->model("datamodel");
+		$this->load->model("resource/filemodel");
+		$this->load->model("resource/datamodel");
 		$fileid = $this->filemodel->upload_file("file");
 		$detail = $this->datamodel->get_file_detail($fileid);
 		$this->output->set_output("success");
@@ -769,6 +770,11 @@ class Teacher extends CI_Controller {
 		$stuhwinfo = $this->datamodel->get_homework_student($stuid, $hwid);
 		$this->filemodel->download_file($stuhwinfo[0]["fileid"], $stuhwinfo[0]["filename"]);
 	}
+
+    public function test(){
+        $this->load->model("resource/adaptor");
+        var_dump($this->adaptor->get_course_list_by_year_and_term(3120100001));
+    }
 }
 
 /* End of file teacher.php */

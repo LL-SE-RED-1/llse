@@ -54,6 +54,7 @@ $(document).ready(function(){
 			font-family: "Helvetica Neue", 'Microsoft YaHei', Helvetica, Arial, sans-serif;
 			display:none;
 			position: fixed;
+            z-index:10000;
 			top: 0px;
 			bottom: 0px;
 			right: 0px;

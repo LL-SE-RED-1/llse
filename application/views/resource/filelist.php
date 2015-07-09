@@ -55,9 +55,9 @@
 						data-role = "<?=$role?>" >删除</button>
 				<?php endif; ?>
 				<?php if ($role == "teacher" && !$item["istop"]):?>
-					<button type="button" class="btn btn-info" title="置顶七天" onclick="location.href='<?=site_url("teacher/settop/$courseid/".$item["fileid"]);?>'">置顶</button>
+					<button type="button" class="btn btn-info" title="置顶七天" onclick="location.href='<?=site_url("$urlprefix/settop/$courseid/".$item["fileid"]);?>'">置顶</button>
 				<?php elseif ($role == "teacher"): ?>
-                    <button type="button" class="btn btn-info" onclick="location.href='<?=site_url("teacher/canceltop/$courseid/".$item["fileid"]);?>'">取消置顶</button>
+                    <button type="button" class="btn btn-info" onclick="location.href='<?=site_url("$urlprefix/canceltop/$courseid/".$item["fileid"]);?>'">取消置顶</button>
                 <?php endif; ?>
 				</div>
       </div><!-- .row -->

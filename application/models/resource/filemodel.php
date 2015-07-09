@@ -14,7 +14,7 @@ class FIleModel extends CI_Model{
 		if (!file_exists(self::$desfolder))
 			mkdir(self::$desfolder, 0766);
 		
-		$this->load->model('datamodel');
+		$this->load->model('resource/datamodel');
     parent::__construct();
   }
 	

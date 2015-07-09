@@ -20,12 +20,12 @@ $urlprefix = "resource/$role";
     <link rel="stylesheet" href="<?=base_url()?>css/dashboard.css">
     <link rel="stylesheet" href="<?=base_url()?>dist/semantic.css">
 	<link rel="stylesheet" href="<?=base_url()?>css/resource/global.css">
-	<link rel="stylesheet" href="<?=base_url()?>css/resource/bootstrap-datetimepicker.min.css">
 	<script src="<?=base_url()?>js/resource/jquery-2.1.4.min.js"></script>
-	<script src="<?=base_url()?>js/resource/bootstrap-datetimepicker.min.js"></script>
     <script src="<?=base_url()?>dist/semantic.js"></script>
 	<script src="<?=base_url()?>js/resource/bootstrap.min.js"></script>
 	<script src="<?=base_url()?>js/resource/share.js"></script>
+	<script src="<?=base_url()?>js/resource/moment-with-locales.js"></script>
+	<script src="<?=base_url()?>js/resource/bootstrap-datetimepicker.js"></script>
 </head>
 <body>
 <?php include "application/views/template/navigator.php"; ?>
