@@ -3,9 +3,9 @@ class R3_Teacher extends CI_controller{
 	public function tprint($cid){
 		$this->load->library('r3_excel');
 		$this->r3_excel->filename = $cid.'学生名单';
-		$this->load->model('r3_Curriculum_model','currim'); //加载curriculum_model
-		$this->load->model('r3_student_model','studem'); //加载student_model
-		$this->load->model('r3_class_model','classm'); //加载class_model
+		$this->load->model('r3/r3_Curriculum_model','currim'); //加载curriculum_model
+		$this->load->model('r3/r3_student_model','studem'); //加载student_model
+		$this->load->model('r3/r3_class_model','classm'); //加载class_model
 		$info = $this->currim->get_student_by_cid($cid); //调用curriculum_model的方法，返回某教学班的学生列表
 		$n = count($info);
 		//把所有的结果都放到$data中

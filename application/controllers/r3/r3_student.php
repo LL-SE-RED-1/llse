@@ -344,12 +344,17 @@ class R3_Student extends CI_controller{
 			$this->currim->delete_class($sid,$selected[0]->class_id);
 		}
 		*/
+		date_default_timezone_set("Asia/Shanghai");
+		$this->load->helper('date');
 
 		$error_prompt = ''; //错误提示
 		//下面获得系统当前时间
-		$sys_month = date('m', time());
-		$sys_day = date('d', time());
-		$sys_hour = date('H', time());
+		$sys_month = mdate("%m");
+		$sys_day = mdate("%d");
+		$sys_hour = mdate("%H");
+		//$sys_month = date('m', time());
+		//$sys_day = date('d', time());
+		//$sys_hour = date('H', time());
 		//获得管理员设置的选课时间
 		$limit_time = $this->systime->get_original_time();
 		$goodtime = 1;

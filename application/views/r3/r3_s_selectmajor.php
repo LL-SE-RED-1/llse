@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-	<?php include 'application/views/r3_header.php';?>
+	<?php include 'application/views/r3/r3_header.php';?>
 </head>
 
 
 
 
   <body>
-	<?php include 'application/views/r3_s_boarder.php';?>
-	<?php include 'application/views/r3_s_sidebar.php';?>
+	<?php include 'application/views/r3/r3_s_boarder.php';?>
+	<?php include 'application/views/r3/r3_s_sidebar.php';?>
 
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           
-	  <?php include 'application/views/r3_s_circles.php'; ?>
+	  <?php include 'application/views/r3/r3_s_circles.php'; ?>
           
           <h1 class="page-header">专业课程选课</h1>
           
@@ -39,7 +39,7 @@
                       for($i=1;$i<=$coursenum;$i++){
                         if($i%2==1){
                           echo '<tr><td><a href=';
-                          echo site_url('r3_student/courseinfo/'.$courseid[$i]);
+                          echo site_url('r3/r3_student/courseinfo/'.$courseid[$i]);
                           echo '>';
                           echo $coursename[$i];
                           echo '</a></td><td>';
@@ -49,12 +49,12 @@
                             echo "已选";
                           }
                           echo '</td><td><button class="btn btn-default" formaction=';
-                          echo site_url("r3_student/selectpage/".$sid.'/'.$courseid[$i]);
+                          echo site_url("r3/r3_student/selectpage/".$sid.'/'.$courseid[$i]);
                           echo '>转入选课页面</button></td>';
                         }
                         else{
                           echo '<td><a href=';
-                          echo site_url('r3_student/courseinfo/'.$courseid[$i]);
+                          echo site_url('r3/r3_student/courseinfo/'.$courseid[$i]);
                           echo '>';
                           echo $coursename[$i];
                           echo '</a></td><td>';
@@ -64,7 +64,7 @@
                             echo "已选";
                           }
                           echo '</td><td><button class="btn btn-default" formaction=';
-                          echo site_url("r3_student/selectpage/".$sid.'/'.$courseid[$i]);
+                          echo site_url("r3/r3_student/selectpage/".$sid.'/'.$courseid[$i]);
                           echo '>转入选课页面</button></td></tr>';
                         }
                       }
@@ -93,6 +93,6 @@
       </div>
     </div>
 
-  <?php include 'application/views/r3_script.php';?> 
+  <?php include 'application/views/r3/r3_script.php';?> 
   </body>
 </html>
