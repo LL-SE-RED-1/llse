@@ -168,6 +168,27 @@ class R3_Student extends CI_controller{
 	public function assess($sid = 0){
 		$sid = $this->session->userdata('uid');
 
+
+		//踢人啦
+		date_default_timezone_set("Asia/Shanghai");
+		$this->load->helper('date');
+		$sys_minute = mdate("%i");
+
+		$real_lastmove_stamp = $this->session->userdata('r3_last_activity');
+		$user_lastmove_stamp = $this->session->userdata('last_activity');
+		$this->session->set_userdata('r3_last_activity', $user_lastmove_stamp);
+
+		$user_lastmove = mdate("%i", $real_lastmove_stamp);
+
+		
+		$this->load->model('r3/r3_onlinecontrol_model', 'onlinem');
+ 		$online_num_control = $this->onlinem->get_online_control();
+
+ 		if ($sys_minute-$user_lastmove > $online_num_control[0]->online_control){
+ 			redirect('login');
+ 		}
+ 		//踢人啦end
+
 		$this->load->model('r3/r3_Score_model', 'scorem');
 		$this->load->model('r3/r3_Class_model', 'classm');
 
@@ -271,6 +292,7 @@ class R3_Student extends CI_controller{
 		*/
 		$sid = $this->session->userdata('uid');
 
+
  		if($cid == '0'){ // 当传入参数为零即没有传入参数时返回错误页面
 			echo '404 这是什么鬼课？';
 			return ;
@@ -325,7 +347,6 @@ class R3_Student extends CI_controller{
 		/*
 			
 		*/
-		echo 'getin!';
 		$sid = $this->session->userdata('uid');
 
 		$this->load->model('r3/r3_Score_model', 'scorem');
@@ -335,7 +356,6 @@ class R3_Student extends CI_controller{
 		$clsid = $this->input->post('selectcid'); // 获取post方法来的选课号 
 
 		$selected = $this->currim->whether_select($sid , $cid); //判断是否选了本课程
-		var_dump($selected);
 
 		//var_dump($tmp);
 
@@ -376,7 +396,6 @@ class R3_Student extends CI_controller{
 			$error_prompt = '现在不是选课时间！';	
 		}
 
-		echo 'good after time';
 
 		$this->load->model('r3/r3_Plan_model', 'planm');
 		$this->load->model('r3/r3_Course_model', 'coursem');
@@ -406,10 +425,8 @@ class R3_Student extends CI_controller{
 
 		$score_state = $this->scorem->get_score_by_sidcid($sid, $cid);
 		$n_score = count($score_state);
-		echo 'good before judge';
 		//若当前不是选课时间，给出相应的提示
 		if ($goodtime == 0){
-			echo 'badtime';
 			$data['content'] = $error_prompt;
 			$data['sid'] = $sid;
 			$data['cid'] = $cid;
@@ -417,7 +434,6 @@ class R3_Student extends CI_controller{
 		}
 		else //若在选课时间内，根据学生不同的操作，做出相应的处理
 		if ($goodcredit == 0){
-			echo 'bad plan';
 			$data['content'] = '培养方案不满足要求，请先制定好培养方案！';
 			$data['sid'] = $sid;
 			$data['cid'] = $cid;
@@ -425,7 +441,6 @@ class R3_Student extends CI_controller{
 		}
 		else
 		if ($n_score > 0 && $score_state[0]->score >= 60){
-			echo 'bad class';
 			$data['content'] = '这门课已经修过了，不能重复修读！'.$score_state[0]->score;
 			$data['sid'] = $sid;
 			$data['cid'] = $cid;
@@ -433,22 +448,20 @@ class R3_Student extends CI_controller{
 		}
 		else
 		if($clsid){
-			echo 'good class';
-			for ($d = 0; $d < 10; $d++)
-				echo $clsid;
 			if (count($selected)>0){
 					$this->currim->delete_class($sid,$selected[0]->class_id);
 			}
 
-			/*  TODO
+			/*
 			$chosentime = $this->classm->get_time_by_cid($clsid);
 			$existedtime = $this->currim->get_time_by_sid($sid);
 			$n = count($existedtime);
-			TODO   */
+			*/
+
 			$good = 1;
 
 			//以下判断当前选的课是否与已选上的课有冲突
-			/* TOD
+			/*
 			for ($i = 0; $i < $n; $i++){
 				if ($chosentime[0]->day == $existedtime[$i]->day && $chosentime[0]->class_time == $existedtime[$i]->class_time){
 					$good = 0;
@@ -461,7 +474,8 @@ class R3_Student extends CI_controller{
 					break;
 				}
 			}
-			TODO */
+			*/
+			
 
 			//以下判断当前选的课是否还有余量
 			$margin = $this->classm->get_margin_by_cid($clsid);
@@ -523,6 +537,28 @@ class R3_Student extends CI_controller{
 	//学生的搜索引擎
 	public function selectengine($sid = '0'){
 		$sid = $this->session->userdata('uid');
+
+
+		//踢人啦
+		date_default_timezone_set("Asia/Shanghai");
+		$this->load->helper('date');
+		$sys_minute = mdate("%i");
+
+		$real_lastmove_stamp = $this->session->userdata('r3_last_activity');
+		$user_lastmove_stamp = $this->session->userdata('last_activity');
+		$this->session->set_userdata('r3_last_activity', $user_lastmove_stamp);
+
+		$user_lastmove = mdate("%i", $real_lastmove_stamp);
+
+		
+		$this->load->model('r3/r3_onlinecontrol_model', 'onlinem');
+ 		$online_num_control = $this->onlinem->get_online_control();
+
+ 		if ($sys_minute-$user_lastmove > $online_num_control[0]->online_control){
+ 			redirect('login');
+ 		}
+ 		//踢人啦end
+
 		
 		$this->load->model('r3/r3_Course_model','coursem'); //加载course_model
 		$major = '0';
@@ -633,6 +669,27 @@ class R3_Student extends CI_controller{
 	*/
 		$sid = $this->session->userdata('uid');
 
+
+		//踢人啦
+		date_default_timezone_set("Asia/Shanghai");
+		$this->load->helper('date');
+		$sys_minute = mdate("%i");
+
+		$real_lastmove_stamp = $this->session->userdata('r3_last_activity');
+		$user_lastmove_stamp = $this->session->userdata('last_activity');
+		$this->session->set_userdata('r3_last_activity', $user_lastmove_stamp);
+
+		$user_lastmove = mdate("%i", $real_lastmove_stamp);
+
+		
+		$this->load->model('r3/r3_onlinecontrol_model', 'onlinem');
+ 		$online_num_control = $this->onlinem->get_online_control();
+
+ 		if ($sys_minute-$user_lastmove > $online_num_control[0]->online_control){
+ 			redirect('login');
+ 		}
+ 		//踢人啦end
+
 		$this->load->model('r3/r3_Plan_model','planm');
 		$tmp = $this->planm->get_all_major($sid);//获取所有专业课
 		$this->load->model('r3/r3_Course_model','coursem');
@@ -675,6 +732,27 @@ class R3_Student extends CI_controller{
 
 		*/
 		$sid = $this->session->userdata('uid');
+
+		//踢人啦
+		date_default_timezone_set("Asia/Shanghai");
+		$this->load->helper('date');
+		$sys_minute = mdate("%i");
+
+		$real_lastmove_stamp = $this->session->userdata('r3_last_activity');
+		$user_lastmove_stamp = $this->session->userdata('last_activity');
+		$this->session->set_userdata('r3_last_activity', $user_lastmove_stamp);
+
+		$user_lastmove = mdate("%i", $real_lastmove_stamp);
+
+		
+		$this->load->model('r3/r3_onlinecontrol_model', 'onlinem');
+ 		$online_num_control = $this->onlinem->get_online_control();
+
+ 		if ($sys_minute-$user_lastmove > $online_num_control[0]->online_control){
+ 			redirect('login');
+ 		}
+ 		//踢人啦end
+
 		$this->load->model('r3/r3_Course_model','coursem');
 		$this->load->model('r3/r3_Curriculum_model','Curriculum_model');
 
@@ -735,10 +813,29 @@ class R3_Student extends CI_controller{
 			根据学号，进行培养方案编排
 
 		*/
-
-		
 		$user_type = $this->session->userdata('user_type');
  		$sid = $this->session->userdata('uid');
+
+ 		//踢人啦
+		date_default_timezone_set("Asia/Shanghai");
+		$this->load->helper('date');
+		$sys_minute = mdate("%i");
+
+		$real_lastmove_stamp = $this->session->userdata('r3_last_activity');
+		$user_lastmove_stamp = $this->session->userdata('last_activity');
+		$this->session->set_userdata('r3_last_activity', $user_lastmove_stamp);
+
+		$user_lastmove = mdate("%i", $real_lastmove_stamp);
+
+		
+		$this->load->model('r3/r3_onlinecontrol_model', 'onlinem');
+ 		$online_num_control = $this->onlinem->get_online_control();
+
+ 		if ($sys_minute-$user_lastmove > $online_num_control[0]->online_control){
+ 			redirect('login');
+ 		}
+ 		//踢人啦end
+		
 
 
 		$this->load->model('r3/r3_Plan_model','planm');
@@ -1292,6 +1389,26 @@ class R3_Student extends CI_controller{
 		*/
 		$sid = $this->session->userdata('uid');
 
+		//踢人啦
+		date_default_timezone_set("Asia/Shanghai");
+		$this->load->helper('date');
+		$sys_minute = mdate("%i");
+
+		$real_lastmove_stamp = $this->session->userdata('r3_last_activity');
+		$user_lastmove_stamp = $this->session->userdata('last_activity');
+		$this->session->set_userdata('r3_last_activity', $user_lastmove_stamp);
+
+		$user_lastmove = mdate("%i", $real_lastmove_stamp);
+
+		
+		$this->load->model('r3/r3_onlinecontrol_model', 'onlinem');
+ 		$online_num_control = $this->onlinem->get_online_control();
+
+ 		if ($sys_minute-$user_lastmove > $online_num_control[0]->online_control){
+ 			redirect('login');
+ 		}
+ 		//踢人啦end
+
 		$this->load->model('r3/r3_Curriculum_model','Curriculum_model');
 		$this->load->model('r3/r3_Course_model','coursem');
 		//$tmp = $this->Curriculum_model->get_all_class($sid);//从课表模块中获取所有已选教学班
@@ -1388,10 +1505,32 @@ class R3_Student extends CI_controller{
  		//for ($i = 0; $i < 100; $i++){
  			//echo 'something happen';
  		//}
+ 		$this->load->model('r3/r3_session_model', 'sessionm');
+ 		$user_number = $this->sessionm->get_online_user_num();
+
+ 		$this->load->model('r3/r3_onlinecontrol_model', 'onlinem');
+ 		$online_num_control = $this->onlinem->get_online_control();
+
+
+ 		$user_lastmove_stamp = $this->session->userdata('last_activity');
+		$this->session->set_userdata('r3_last_activity', $user_lastmove_stamp);
+
+ 		/*
+ 		if ($user_number > $online_num_control[0]->online_num){ 
+ 			$data['content'] = '在线人数超过限制，请等待一会儿~';
+ 			$this->load->view('r3/r3_online_alert', $data);
+ 		} 
+ 		*/ 
 
 		$user_type = $this->session->userdata('user_type');
  		$uid = $this->session->userdata('uid');
  		if ($user_type == 1){
+
+ 			if ($user_number > $online_num_control[0]->online_num){ 
+ 				$data['content'] = '在线人数超过限制，请等待一会儿~';
+ 				$this->load->view('r3/r3_online_alert', $data);
+ 			}  
+
  			$this->load->view('r3/r3_s_homepage');
  		}
  		else
