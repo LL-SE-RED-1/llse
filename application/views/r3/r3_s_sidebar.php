@@ -2,21 +2,21 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li><a href=<?php echo site_url('r3/r3_student/test');?>>信息管理</a></li>
+            <li><a href="<?php echo site_url('ims/ims_welcome');?>">信息管理子系统</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href=<?php echo site_url('r3/r3_student/test');?>>自动排课</a></li>
+            <li><a href="<?php echo site_url('r2/admin_classroom_edit');?>">排课子系统</a></li>
           </ul>
           <ul class="nav nav-sidebar">
             <li class="active"><a href=<?php echo site_url('r3/r3_student/index');?>>在线选课</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href=<?php echo site_url('r3/r3_student/test');?>>课程资源 </a></li>
+            <li><a href="<?php echo site_url('ims/ims_welcome');?>">课程资源子系统 </a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href=<?php echo site_url('r3/r3_student/test');?>>在线测试</a></li>
+            <li><a href="<?php echo site_url('ims/ims_welcome');?>">在线考试子系统</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href=<?php echo site_url('r3/r3_student/test');?>>成绩管理</a></li>
+            <li><a href="<?php echo site_url('ims/ims_welcome');?>">成绩管理子系统</a></li>
           </ul>
         </div>

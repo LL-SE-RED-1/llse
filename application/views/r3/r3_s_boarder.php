@@ -25,9 +25,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href=<?php echo site_url('r3_student/curriculum/'.$sid);?>>我的课表</a></li>
-            <li><a href=<?php echo site_url('r3_student/index');?>>选课首页</a></li>
-            <li><a href=<?php echo site_url('r3_student/test');?>>安全登出</a></li>
+            <li><a href=<?php echo site_url('r3/r3_student/curriculum/'.$sid);?>>我的课表</a></li>
+            <li><a href=<?php echo site_url('r3/r3_student/index');?>>选课首页</a></li>
+            <li><a href=<?php echo site_url('ims/ims_welcome');?>>安全登出</a></li>
           </ul>
         </div>
       </div>

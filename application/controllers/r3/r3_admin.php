@@ -6,7 +6,162 @@ class R3_Admin extends CI_controller{
 		$this->load->view('r3/r3_a_homepage'); //加载管理员的首页
 	}
 	//管理员修改选课时间
-	public function modifysystem(){
+	public function modifysystem(){       
+		$this->load->model('r3/r3_Selecttime_model', 'timem'); //加载selecttime_model
+		//以下先把所有前端可能post过来的信息初始化
+		$startmonth2 = 0;
+		$startday2 = 0;
+		$starthour2 = 0;
+		$endmonth2 = 0;
+		$endday2 = 0;
+		$endhour2 = 0;
+		$try_settime = 0;
+		//下面把设置选课时间界面post上来的所有信息存在上面的变量中
+		if ($this->input->post('startmonth2')){
+			$startmonth2 = $this->input->post('startmonth2');
+			$try_settime = 1;
+		}
+		if ($this->input->post('startdate2')){
+			$startday2 = $this->input->post('startdate2');	
+			$try_settime = 1;
+		}
+		if ($this->input->post('startclock2')){
+			$starthour2 = $this->input->post('startclock2');	
+			$try_settime = 1;
+		}
+		if ($this->input->post('endmonth2')){
+			$endmonth2 = $this->input->post('endmonth2');	
+			$try_settime = 1;
+		}
+		if ($this->input->post('enddate2')){
+			$endday2 = $this->input->post('enddate2');	
+			$try_settime = 1;
+		}
+		if ($this->input->post('endclock2')){
+			$endhour2 = $this->input->post('endclock2');	
+			$try_settime = 1;
+		}
+
+		$good = 1; //若设置的时间没错，则$good = 1; 否则 $good = 0
+		$error_prompt = ''; //错误提示
+		//以下判断设置的时间中，每个月的天数是否超出那个月的上限
+		if ($startmonth2 == 1 || $startmonth2 == 3 || $startmonth2 == 5 || $startmonth2 == 7 || $startmonth2 == 8 || $startmonth2 == 10 || $startmonth2 == 12){
+			if ($startday2 > 31){
+				$good = 0;
+				$error_prompt = '日期出错！这个月没那么多天！';
+			}
+		}
+		if ($endmonth2 == 1 || $endmonth2 == 3 || $endmonth2 == 5 || $endmonth2 == 7 || $endmonth2 == 8 || $endmonth2 == 10 || $endmonth2 == 12){
+			if ($endday2 > 31){
+				$good = 0;
+				$error_prompt = '日期出错！这个月没那么多天！';
+			}
+		}
+		if ($startmonth2 == 4 || $startmonth2 == 6 || $startmonth2 == 9 || $startmonth2 == 11){
+			if ($startday2 > 30){
+				$good = 0;
+				$error_prompt = '日期出错！这个月没那么多天！';
+			}
+		}
+		if ($endmonth2 == 4 || $endmonth2 == 6 || $endmonth2 == 9 || $endmonth2 == 11){
+			if ($endday2 > 30){
+				$good = 0;
+				$error_prompt = '日期出错！这个月没那么多天！';
+			}
+		}
+		//以下判断，选课结束时间是不是比选课开始时间还早
+		if($startmonth2 > $endmonth2 || ($startmonth2 == $endmonth2 && $startday2 > $endday2)){
+			$good = 0;
+			$error_prompt = '选课结束时间比开始时间早！';
+		}
+		if ($startmonth2 == $endmonth2 && $startday2 == $endday2 && $starthour2 > $endhour2){
+			$good = 0;
+			$error_prompt = '选课结束时间比开始时间早！';	
+		}
+
+
+
+
+		$major = '';
+		$mincredit = 0;
+		$minoption = 0;
+		$mincommon = 0;
+		$try_setcredit = 0;
+		if ($this->input->post('major')){
+			$major = $this->input->post('major');
+			$try_setcredit = 1;
+		}
+		if ($this->input->post('mincredit')){
+			$mincredit = $this->input->post('mincredit');
+			$try_setcredit = 1;
+		}
+		if ($this->input->post('minoption')){
+			$minoption = $this->input->post('minoption');
+			$try_setcredit = 1;
+		}
+		if ($this->input->post('mincommon')){
+			$mincommon = $this->input->post('mincommon');
+			$try_setcredit = 1;
+		}
+
+
+		$this->load->model('r3/r3_onlinecontrol_model', 'onlinem');
+		$try_setonline = 0;
+		$maxlogintime = 0;
+		$maxloginnum = 0;
+		if ($this->input->post('maxlogintime')){
+			$maxlogintime = $this->input->post('maxlogintime');
+			$try_setonline = 1;
+		}
+		if ($this->input->post('maxloginnum')){
+			$maxloginnum = $this->input->post('maxloginnum');
+			$try_setonline = 1;
+		}
+
+		//若设置的时间没问题，则设置并且显示设置成功
+		if ($good == 1 && $try_settime == 1){
+			$this->timem->set_time($startmonth2, $startday2, $starthour2, $endmonth2, $endday2, $endhour2);
+
+
+			$data['content'] = '设置成功';
+		}
+		else
+		if ($good == 0 && $try_settime == 1){
+			$data['content'] = $error_prompt; //否则不设置，并且显示相应的错误提示
+		}
+		else
+		if ($try_setcredit == 1)
+		{
+			$this->load->model('r3/r3_Credit_model', 'creditm');
+			if ($major != ''){
+				$this->creditm->set_credit_requirement($major, $mincredit, $minoption, $mincommon);
+			}
+			$data['content'] = '设置成功';
+		}
+		else
+		if ($try_setonline == 1)
+		{
+			$this->onlinem->set_online_control($maxloginnum, $maxlogintime);
+			$data['content'] = '设置成功';
+		}
+
+		$this->load->view('r3/r3_a_alert', $data); //加载提示框，显示相应的提示
+
+
+
+
+
+
+		
+			
+			
+
+		
+
+	}
+
+
+	public function modifysystem_dropped(){       
 		$this->load->model('r3/r3_Selecttime_model', 'timem'); //加载selecttime_model
 		//以下先把所有前端可能post过来的信息初始化
 		$startmonth2 = 0;
@@ -107,6 +262,7 @@ class R3_Admin extends CI_controller{
 		
 
 	}
+
 	//管理员点击保存前看到的显示设置时间的页面
 	public function setpage(){
 		$this->load->model('r3/r3_Selecttime_model', 'timem'); //加载selecttime_model
@@ -143,6 +299,14 @@ class R3_Admin extends CI_controller{
 		for ($i = 0; $i < $n; $i++){
 			$data['majors'][$i+1] = $res1[$i]->type;
 		}
+
+
+
+		$this->load->model('r3/r3_onlinecontrol_model', 'onlinem');
+		$control_time = $this->onlinem->get_online_control();
+		$data['onlinenum'] = $control_time[0]->online_num;
+		$data['onlinecontrol'] = $control_time[0]->online_control;
+
 
 		$this->load->view('r3/r3_a_setpage', $data); //加载设置时间的视图，并返回结果
 

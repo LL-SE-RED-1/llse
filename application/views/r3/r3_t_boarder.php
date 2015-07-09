@@ -27,7 +27,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href=<?php echo site_url('r3/r3_teacher/curriculum/'.$tid);?>>我的课表</a></li>
             <li><a href=<?php echo site_url('r3/r3_teacher/index');?>>选课首页</a></li>
-            <li><a href=<?php echo site_url('r3/r3_teacher/test');?>>安全登出</a></li>
+            <li><a href=<?php echo site_url('ims/ims_welcome');?>>安全登出</a></li>
           </ul>
         </div>
       </div>

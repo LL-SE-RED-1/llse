@@ -74,51 +74,6 @@
           </div>
           </td>
         </tr>
-        <tr>
-          <td colspan=4>
-            <button type="submit" class="btn btn-default">保存</button>
-          <td>
-        <tr>
-      </tbody>
-    </table>
-  </form>
-
-  <form role="form" action="<?php echo site_url('r3/r3_admin/modifysystem');?>" method="post">
-    <table class="table table-striped">
-      <tbody>
-        <tr><td colspan=4><h3>系统登陆限制设置</h3></td></tr>
-        <tr>
-          <td>最长在线时间</td>
-          <td>
-            <div class="col-sm-10">
-              <?php
-              echo
-              '<input class="form-control" name="maxlogintime" type="int" value="'.$onlinecontrol.'">';
-              ?>
-            </div>分
-          </td>
-          <td>最大在线人数</td>
-          <td>
-            <div class="col-sm-10">
-              <?php 
-              echo 
-              '<input class="form-control" name="maxloginnum" type="int" value="'.$onlinenum.'">';
-              ?>
-            </div>人
-          </td>
-        </tr>
-        <tr>
-          <td colspan=4>
-            <button type="submit" class="btn btn-default">保存</button>
-          <td>
-        <tr>
-      </tbody>
-    </table>
-  </form>
-
-  <form role="form" action="<?php echo site_url('r3/r3_admin/modifysystem');?>" method="post">
-    <table class="table table-striped">
-      <tbody>
         <tr><td colspan=4><h3>系统最低学分设置</h3></td></tr>
         <tr>
           <td>专业选择</td>

@@ -27,7 +27,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href=<?php echo site_url('r3/r3_admin/setpage');?>>系统设置</a></li>
             <li><a href=<?php echo site_url('r3/r3_admin/index');?>>选课首页</a></li>
-            <li><a href=<?php echo site_url('r3/r3_student/test');?>>安全登出</a></li>
+            <li><a href=<?php echo site_url('ims/ims_welcome');?>>安全登出</a></li>
           </ul>
         </div>
       </div>
