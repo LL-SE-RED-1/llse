@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>学生成绩查询</title>
+    <link rel ="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <style>
+      circle {
+        fill: #276677;
+      }
+      .line {
+        fill: transparent;
+        stroke: #276677;
+      }
+      .axis path,
+      .axis line{
+        fill: none;
+        stroke: black;
+        shape-rendering: crispEdges;
+      }
+      .axis text {
+        font-family: sans-serif;
+        font-size: 11px;
+      }
+      .score-plot-bar {
+        fill: #276677;
+      }
+      .toggle-button {
+        float: right;
+        margin-right: 30px;
+        cursor: pointer;
+      }
+      .range-row {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+	<div id="container" class="container">
+      <h1 class="page-header">个人成绩</h1>
+      <div class="row">
+        <div class="col-sm-1">姓
+        名:</div>
+        <div id="name" class="col-sm-1"></div>
+        <div class="col-sm-1  col-sm-offset-1">学号:</div>
+        <div id="id" class="col-sm-1"></div>
+        <div class="col-sm-1  col-sm-offset-1">学院:</div>
+        <div id="college" class="col-sm-3"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-1">行政班:</div>
+        <div id="class" class="col-sm-3"></div>
+      </div>
+
+      <h2 class="sub-header">成绩统计</h2>
+      <div class="row">
+        <svg id="gpaPlot"></svg>
+      </div>
+
+      <h2 class="sub-header">成绩查询</h2>
+      <div class="row">
+        <div class="col-sm-3 placeholder">
+          <select id="method" class="form-control">
+            <option value="all">查询全部在校成绩</option>
+            <option value="duration">按学年-学期查询</option>
+            <option value="keyword">按课程关键字查询</option>
+            <option value="plan">培养方案修读情况查询</option>
+          </select>
+        </div>
+        <form id="searchForm" class="form-inline col-sm-6">
+          <!--课程关键词-->
+          <div id="disp_keyword" class="form-group" style="display: none">
+            <div class="input-group">
+              <div class="input-group-addon">课程名称包括</div>
+              <input type="text" class="form-control" id="inputCourseKeyword" placeholder="如:微积分">
+            </div>
+          </div>
+          <!--学年-学期选项-->
+          <div id="disp_duration" class="form-group" style="display: none">
+            <div class="form-group">
+              <select id="beginYear" class="form-control">
+              </select>
+            </div>
+            <div class="form-group">
+              <label>-</label>
+              <select id="beginTerm" class="form-control">
+                <option value="1">春</option>
+                <option value="2">夏</option>
+                <option value="4">秋</option>
+                <option value="8">冬</option>
+              </select>
+            </div>
+            <label>到</label>
+            <div class="form-group">
+              <select id="endYear" class="form-control">
+              </select>
+            </div>
+            <div class="form-group">
+              <label>-</label>
+              <select id="endTerm" class="form-control">
+                <option value="1">春</option>
+                <option value="2">夏</option>
+                <option value="4">秋</option>
+                <option value="8">冬</option>
+              </select>
+            </div>
+          </div>
+          <button id="queryBtn" type="button" class="btn btn-primary">查询</button>
+        </form>
+      </div>
+
+      <h2 class="sub-header">成绩</h2>
+      <!--查询结果-->
+      <div id="notFoundInfo" style="display:none">
+        <p class="bg-warning">哇! 并没有找到相关的成绩...¯\_(ツ)_/¯</p>
+      </div>
+      <div class="table-responsive">
+        <table id="scoreTable" class="table table-striped" style="display:none">
+            <thead>
+            <tr>
+              <th id="gpa" colspan="3"></th>
+              <th id="mgpa" colspan="3"></th>
+            </tr>
+            <tr>
+              <th>课程号</th>
+              <th>课程名称</th>
+              <th>成绩</th>
+              <th>学分</th>
+              <th>绩点</th>
+              <th>备注</th>
+            </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <script src="assets/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/d3.min.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/Network.js"></script>
+    <script src="js/ScorePlot.js"></script>
+    <script src="js/StudentScoreQuery.js"></script>
+    <script>
+      API.get('/scoreManagement/score/gpa', function(gpaData) {
+        GpaPlot.fill('#gpaPlot', $('#container').width(), 400, gpaData)
+      })
+    </script>
+  </body>
+</html>

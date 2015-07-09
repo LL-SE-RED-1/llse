@@ -15,7 +15,15 @@ class Teacher extends CI_Controller {
      * @return return a json of all classes(with or without final scores)
      */
     public function clazz() {
-        $clazz = $this->fake->getTeacherClazz();
+        $this->load->model('r3/r3_class_model', 'r3class');
+        $clazz = $this->r3class->get_class_by_tid($this->session->userdata('uid'));
+        foreach($clazz as $index => $value) {
+            $clazz[$index] = array(
+                'classId' => $value->class_id,
+                'courseName' => $value->class_name,
+                'classTerm' => '学期'
+            );
+        }
         $withScores = array();
         $withoutScores = array();
         foreach ($clazz as &$c) {
@@ -28,6 +36,24 @@ class Teacher extends CI_Controller {
             'withScores' => $withScores,
             'withoutScores' => $withoutScores
             ));
+    }
+
+    public function index($path='studentScoreQuery') {
+        $data['navi'] = 0;
+        $data['uid'] = $this->session->userdata('uid');
+        $data['type'] = $this->session->userdata('user_type');
+        $data['path'] = $path;
+
+        $this->load->view('template/header');
+        $this->load->view('template/navigator', $data);
+        $this->load->view('r7/side_navi', $data);
+        if ($data['type'] == 2) {
+            $data['path'] = 'teacher';
+            $this->load->view('r7/teacher', $data);
+        }
+        else {
+            $this->load->view('r7/student', $data);
+        }
     }
 
     public function getTeacherCourses() {

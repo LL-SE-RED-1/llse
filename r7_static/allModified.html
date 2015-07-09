@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>成绩修改公示</title>
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/Network.js"></script>
+    <script src="js/utils.js"></script>  
+    <script src="js/allModified.js"></script>  
+    <script src="js/handsontable.full.js"></script>
+    <link rel="stylesheet" media="screen" href="css/handsontable.full.css">
+    <!-- Bootstrap core CSS -->
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+        <div class="col-sm-9 col-sm-offset-3 col-sm-10 col-sm-offset-2 main">
+          <h1 class="page-header">成绩修改公示</h1>
+                <div class="handsontable" id="worksheet"></div>
+        </div>
+
+<script>
+ 
+  //变量定义     
+  var
+    container = document.getElementById('worksheet'),
+    worksheet,
+    data;
+    API.get("/scoreManagement/score/getAllModifyScores",{classId:classId},function(scores){
+        data = scores;
+   
+//    data = [{
+//        "requestId" : "1",
+//        "courseName" : "课程A",
+//        "studentId": "学生ID",
+//        "studentName": "学生A",
+//        "requestTeacherName" : "教师A",
+//        "mInfo": "申请理由",
+//        "score": 100,
+//        
+//        "isAbsent" : false,
+//        "mScore": 100,
+//        
+//        "mIsAbsent" : false,
+//        "createTime" : "创建时间",
+//        "finishTime" : "审批完成时间",
+//        "teacherName1" : "teacherName1",
+//        "teacherName2" : "teacherName2",
+//        "teacherState1" : 1,
+//        "teacherState2" : 1,
+//        "teacherReason1" : "如果失败的理由",
+//        "teacherReason2" : "如果失败的理由",
+//        "isFinished" : 1
+//    },
+//    {
+//        "requestId" : "2",
+//        "courseName" : "课程B",
+//        "studentId": "学生ID",
+//        "studentName": "学生B",
+//        "requestTeacherName" : "教师B",
+//        "mInfo": "申请理由",
+//        "score": 100,
+//        
+//        "isAbsent" : false,
+//        "mScore": 100,
+//        
+//        "mIsAbsent" : false,
+//        "createTime" : "创建时间",
+//        "finishTime" : "审批完成时间",
+//        "teacherName1" : "teacherName1",
+//        "teacherName2" : "teacherName2",
+//        "teacherState1" : 1,
+//        "teacherState2" : 1,
+//        "teacherReason1" : "如果失败的理由",
+//        "teacherReason2" : "如果失败的理由",
+//        "isFinished" : 1
+//    }];
+  finishedRenderer = function (instance, td, row, col, prop, value, cellProperties) {
+      if(value==1) td.innerText="通过";
+      else td.innerText="未通过";
+  }
+    //新建一个表
+  worksheet = new Handsontable(container, {
+    //表数据设置
+    data:data,
+    // data: scores,
+    // dataSchema: {studentId: null, studentName: null, score: null, grade: null, isAbsent: null},
+    //表头
+     colHeaders: ['ID', '教师', '学生姓名', '课程','申请理由','原成绩','原缺考情况','新成绩','现缺考情况','审批时间','申请结果'],
+    //列数据定义
+     columns: [
+        {data: 'requestId',readOnly:true},//申请ID
+        {data: 'requestTeacherName',readOnly:true},//教师姓名
+        {data: 'studentName',readOnly:true},//学生
+        {data: 'courseName',readOnly:true},
+        {data: 'mInfo',readOnly:true},
+        {data: 'score',readOnly:true},
+        {data: 'isAbsent',readOnly:true},
+        {data: 'mScore',readOnly:true},
+        {data: 'mIsAbsent',readOnly:true},
+        {data: 'finishTime',readOnly:true},
+        {data: 'isFinished',renderer:finishedRenderer,readOnly:true}
+      ],
+    contextMenu: true,//包含默认右键菜单
+    fillHandle: true,//可以使用drag-down 和 copy-down
+    stretchH: 'all'//strech方式显示
+  });
+ });
+</script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    
+    <!-- Just to make our placeholder images work. Don't actually copy the next line!
+    <script src="../../assets/js/vendor/holder.js"></script>-->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+  </body>
+</html>

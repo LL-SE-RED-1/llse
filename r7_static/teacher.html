@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>成绩管理子系统教师界面</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"/>
+</head>
+<body>
+    <div class="container">
+        <h1>教学班级</h1>
+        <div id="checkoutContainer"></div>
+        <div id="tables"></div>
+    </div>
+    <script id="checkoutTpl" type="text/x-handlebars-template">
+        {{#list.length}}
+            <div class="alert alert-info">
+                您共有 {{list.length}} 条成绩修改需要审批，
+                <a href="{{__checkoutURL}}" target="_blank">点击这里</a> 进行审批
+            </div>
+        {{/list.length}}
+    </script>
+    <script id="mainTpl" type="text/x-handlebars-template">
+        <h2>未上传成绩</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>班级编号</th>
+                    <th>课程名称</th>
+                    <th>开课学期</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {{#withoutScores}}
+                <tr>
+                    <td>{{classId}}</td>
+                    <td>{{courseName}}</td>
+                    <td>{{classTerm}}</td>
+                    <td><a href="{{__importURL}}" class="btn btn-primary">导入成绩</a></td>
+                </tr>
+            {{/withoutScores}}
+            </tbody>
+        </table>
+
+        <h2>已上传成绩</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>班级编号</th>
+                <th>课程名称</th>
+                <th>开课学期</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#withScores}}
+            <tr>
+                <td>{{classId}}</td>
+                <td>{{courseName}}</td>
+                <td>{{classTerm}}</td>
+                <td><a href="{{__analyticsURL}}" class="btn btn-primary">分析成绩</a></td>
+                <td><a href="{{__modifyURL}}" class="btn btn-primary">修改成绩</a></td>
+            </tr>
+            {{/withScores}}
+            </tbody>
+        </table>
+    </script>
+    <script src="assets/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/mustache.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/Network.js"></script>
+    <script>
+        API.get('/scoreManagement/teacher/clazz', function(data) {
+            var template = $('#mainTpl').html()
+            data.__importURL = function() {
+                return API.frontURL + '/upload.html' + buildHashUrl({ classId: this.classId })
+            }
+            data.__analyticsURL = function() {
+                return API.frontURL + '/scoreAnalytics.html' + buildHashUrl({ 'classId': this.classId })
+            }
+            data.__modifyURL = function() {
+                return API.frontURL + '/scoreModify.html' + buildHashUrl({ classId: this.classId })
+            }
+            Mustache.parse(template)
+            $('#tables').html(Mustache.render(template, data))
+        })
+
+        API.get('/scoreManagement/score/getModifyScores', function(data) {
+            var template = $('#checkoutTpl').html()
+            data = {
+                list: data,
+                __checkoutURL: API.frontURL + '/approval.html'
+            }
+            Mustache.parse(template)
+            $('#checkoutContainer').html(Mustache.render(template, data))
+        })
+    </script>
+</body>
+</html>

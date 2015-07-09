@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"/>
+    <style>
+        .axis path,
+        .axis line{
+            fill: none;
+            stroke: black;
+            shape-rendering: crispEdges;
+        }
+        .axis text {
+            font-family: sans-serif;
+            font-size: 11px;
+        }
+        .score-plot-bar {
+            fill: #276677;
+        }
+        .toggle-button {
+            float: right;
+            margin-right: 30px;
+            cursor: pointer;
+        }
+        .range-row {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="container" class="container">
+        <h1>成绩分析</h1>
+        <h2>平均成绩：<span id="avgScore"></span></h2>
+        <h2>成绩分布图</h2>
+        <svg id="scorePlot"></svg>
+        <h2>排名</h2>
+        <div id="orderContainer"></div>
+    </div>
+    <script id="orderTpl" type="text/x-handlebars-template">
+        <table class="table">
+            <thead></thead>
+            <tbody>
+            {{#ranges}}
+                <tr class="info">
+                    <td colspan="3">第{{start}}到第{{end}}名</td>
+                    <td><span targetID="{{start}}" class="toggle-button glyphicon glyphicon-chevron-down"></span></td>
+                </tr>
+                {{#students}}
+                    <tr class="range-row range-row-{{start}}">
+                        <td>{{order}}</td>
+                        <td>{{studentId}}</td>
+                        <td class="text-center">{{studentName}}</td>
+                        <td class="text-center">{{score}}</td>
+                    </tr>
+                {{/students}}
+            {{/ranges}}
+            </tbody>
+        </table>
+    </script>
+    <script src="assets/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/mustache.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/Network.js"></script>
+    <script src="assets/d3.min.js"></script>
+    <script src="js/ScorePlot.js"></script>
+    <script>
+        API.get('/scoreManagement/score/classScore', {
+            classId: getHashParam('classId')
+        }, function(data) {
+            ScorePlot.fill('#scorePlot', $('#container').width(), 300, data)
+
+            var rangeStep = 5
+            data.sort(function(a, b) {
+                return parseFloat(a.score) < parseFloat(b.score)
+            })
+            var sum = data.reduce(function(previous, current) {
+                return previous + parseFloat(current.score)
+            }, 0)
+            var ranges = []
+            data.forEach(function(student, index) {
+                var order = Math.floor(index / rangeStep)
+                student.order = index + 1
+                ranges[order] = ranges[order] || {
+                    start: order + 1,
+                    end: function() {
+                      return this.start + this.students.length - 1
+                    },
+                    students: []
+                }
+                ranges[order].students.push(student)
+            })
+            $('#avgScore').text(Math.round(sum / data.length * 10) / 10)
+
+            var template = $('#orderTpl').html()
+            Mustache.parse(template)
+            $('#orderContainer').html(Mustache.render(template, {
+                ranges: ranges
+            }))
+
+            $('.toggle-button').click(function() {
+                $('.range-row-' + $(this).attr('targetID')).toggle()
+            })
+        })
+    </script>
+</body>
+</html>

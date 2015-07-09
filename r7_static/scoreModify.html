@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>错误成绩修正</title>
+    <link rel ="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  </head>
+  <body>
+	<div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-sm-10 col-sm-offset-2 main">
+          <h1 class="page-header">错误成绩修正</h1>
+          <div class="row">
+            <div class="col-sm-2">课程名称:</div>
+            <div id="courseName" class="col-sm-2"></div>   
+
+          <h2 class="sub-header">学生成绩</h2>
+          <!--学生成绩展示-->
+          <div class="table-responsive">
+            <table id="scoreTable" class="table">
+              <thead>
+                <tr>
+                  <th>学号</th>
+                  <th>姓名</th>
+                  <th>成绩</th>
+                  <th>绩点</th>
+                  <th>缺考</th>
+                  <th>操作/状态</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody"> </tbody>
+            </table>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <p class="bg-info">请选择对所修改成绩进行审批的教师并确认以上修改:</p>
+            </div>
+          </div>
+          <form id="selectForm" class="form-inline col-sm-6">
+              <div class="form-group">  
+                <div class="form-group">
+                  <select id="teacher1" class="form-control"></select>
+                </div>
+                <div class="form-group">
+                  <select id="teacher2" class="form-control"></select>
+                </div>
+              </div>
+              <button id="confirm" type="button" class="btn btn-primary">确认并提交</button>
+                     
+          </form>      
+  
+        </div>
+      </div>
+    </div>
+    <script src="assets/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/ScoreModify.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/Network.js"></script>
+  </body>
+</html>
