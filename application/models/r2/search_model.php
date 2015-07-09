@@ -23,15 +23,6 @@ class Search_model extends CI_Model {
 
     return $query->result_array();
   }
-  public function classinfo($info){
-        $this->load->database();
-        if(empty($info))
-           return $this->db->query("select * from classes")->result();//选择出给定的教师名
-         else{
-           return $this->db->get_where("classes",$info)->result();
-         }
-       // var_dump($query);
-  }
   public function get_where_table(){
     $this->load->database();
     $query=$this->db->query("delete from search");//选择出给定的教师名

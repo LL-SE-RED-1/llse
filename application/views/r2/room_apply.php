@@ -47,7 +47,7 @@ $this->load->helper('url');
 			   		<input type="int" name="classroom_id" value = "<?php echo $classroom_id;?>" class="form-control" readonly/>
   			<p>教室类型: 
 				<select class="form-control" value = "<?php echo $type;?>" name="type" onchange="__doPostBack('DropDownList1','')" language="javascript" id="DropDownList1" >
-					<option value="3" <?php if($type == 0) echo "selected = selected"?>>多媒体</option>
+					<option value="3" <?php if($type == 3) echo "selected = selected"?>>多媒体</option>
 					<option value="2" <?php if($type == 2) echo "selected = selected"?>>实验室</option>
 					<option value="1" <?php if($type == 1) echo "selected = selected"?>>普通教室</option></select>
 				校区: <select class="form-control" name="campus" value = "<?php echo $campus;?>" onchange="__doPostBack('DropDownList2','')" language="javascript" id="DropDownList2">

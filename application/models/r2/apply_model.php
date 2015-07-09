@@ -8,7 +8,6 @@ class Apply_model extends CI_Model {
 
   public function get_application(){
     $this->load->database();
-   // echo"enenen";
     $query = $this->db->query("select * from man_apply natural join classes"); //显示man_apply和classes自然连接的结果
     return $query->result_array();
   }

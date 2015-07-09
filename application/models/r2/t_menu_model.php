@@ -9,7 +9,7 @@ class t_menu_model extends CI_Model{
 		$tid=$this->session->userdata['uid'];
 		$DB_default=$this->load->database('default', TRUE);//load数据库
 		//执行sql语句，查询待排课的所有教学班信息，结果返回给$query
-		$query=$DB_default->query("SELECT * FROM apply INNER JOIN imsCourse USING (course_id) WHERE state=1 and teacher_id='$tid'");
+		$query=$DB_default->query('SELECT * FROM apply INNER JOIN imsCourse USING (course_id) WHERE state=1 and teacher_id=$tid');
 		return $query->result_array();//返回记录数组
 		
 	}
@@ -17,7 +17,7 @@ class t_menu_model extends CI_Model{
 		$tid=$this->session->userdata['uid'];
 		$DB_default=$this->load->database('default', TRUE);//load数据库
 		//执行sql语句，查询排课成功的所有教学班信息，结果返回给$query
-		$query=$DB_default->query("SELECT * FROM apply INNER JOIN classes USING (class_id,teacher_id) WHERE state=2 and teacher_id='$tid'");
+		$query=$DB_default->query('SELECT * FROM apply INNER JOIN classes USING (class_id) WHERE state=2 and teacher_id=$tid');
 		return $query->result_array();//返回记录数组
 		
 	}
@@ -25,7 +25,7 @@ class t_menu_model extends CI_Model{
 		$tid=$this->session->userdata['uid'];
 		$DB_default=$this->load->database('default', TRUE);//load数据库
 		//执行sql语句，查询排课成功的所有教学班信息，结果返回给$query
-		$query=$DB_default->query("SELECT * FROM apply INNER JOIN classes USING (class_id,teacher_id) WHERE state=5  and teacher_id='$tid'");
+		$query=$DB_default->query('SELECT * FROM apply INNER JOIN classes USING (class_id) WHERE state=5 and teacher_id=$tid');
 		return $query->result_array();//返回记录数组
 		
 	}
@@ -33,27 +33,20 @@ class t_menu_model extends CI_Model{
 		$tid=$this->session->userdata['uid'];
 		$DB_default=$this->load->database('default', TRUE);//load数据库
 		//执行sql语句，查询待调整的所有教学班信息，结果返回给$query
-		$query=$DB_default->query("SELECT * FROM apply INNER JOIN classes USING (class_id,teacher_id) WHERE state=3  and teacher_id='$tid'");
+		$query=$DB_default->query('SELECT * FROM apply INNER JOIN classes USING (class_id) WHERE state=3 and teacher_id=$tid');
 		return $query->result_array();//返回记录数组
 	}
 	public function get_apply4(){//查询已被删除的所有教学班信息
 		$tid=$this->session->userdata['uid'];
 		$DB_default=$this->load->database('default', TRUE);//load数据库
 		//执行sql语句，查询已被删除的所有教学班信息，结果返回给$query
-		$query=$DB_default->query("SELECT * FROM apply INNER JOIN imsCourse USING (course_id) WHERE state=4 and teacher_id='$tid'");
+		$query=$DB_default->query('SELECT * FROM apply INNER JOIN imsCourse USING (course_id) WHERE state=4 and teacher_id=$tid');
 		return $query->result_array();//返回记录数组
 	}
 	public function get_classroom()
 	{
 		$DB_default=$this->load->database('default', TRUE);
 		$query=$DB_default->query('SELECT * FROM classroom');
-		return $query->result_array();
-	}
-	public function get_teacher()
-	{
-		$tid=$this->session->userdata['uid'];
-		$DB_default=$this->load->database('default', TRUE);
-		$query=$DB_default->query("SELECT * FROM imsTeacher where uid='$tid'");
 		return $query->result_array();
 	}
 	public function check(){//检查能否添加course_id=$courseid的教学班
@@ -69,11 +62,11 @@ class t_menu_model extends CI_Model{
 		return	$result=2;*/
 		return $result;//返回result
 	}
-	function addapply($courseid){//添加教学班
+	function addapply(){//添加教学班
 		$tid=$this->session->userdata['uid'];
 		$DB_default=$this->load->database('default', TRUE);//load数据库
 		$result = $DB_default->query("insert into apply (course_id,teacher_id,date,state) 
-			values('$courseid',$tid,now(),1)");//向apply表插入一条申请记录，结果返回给result
+			values('$_POST[courseid]',$tid,now(),1)");//向apply表插入一条申请记录，结果返回给result
 		return $result;//返回插入语句执行结果
 	}
 }

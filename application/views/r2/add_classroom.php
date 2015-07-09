@@ -46,7 +46,7 @@ $this->load->helper('url');
 			<!--教室类型-->
   			<p>教室类型: 
 				<select class="form-control" name="type" onchange="__doPostBack('DropDownList1','')" language="javascript" id="DropDownList1" >
-					<option value="0">多媒体</option>
+					<option value="3">多媒体</option>
 					<option value="2">实验室</option>
 					<option selected="selected" value="1">普通教室</option></select>
 			<!--校区-->

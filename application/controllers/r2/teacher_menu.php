@@ -7,10 +7,10 @@ class teacher_menu extends CI_Controller{
 		$this->load->model('r2/t_menu_model');//load对应的model文件
 	}
 	public function index(){
+		// die(var_dump($this->input->get()));
 		$data['tid']=$this->session->userdata['uid'];
-		$courseid=$this->input->get('course_id');
 		$this->load->model('r2/t_menu_model');//load对应的model文件
-		/*$data['apply1']=$this->t_menu_model->get_apply1();//调用get_apply1函数获取待排课的所有教学班信息
+		$data['apply1']=$this->t_menu_model->get_apply1();//调用get_apply1函数获取待排课的所有教学班信息
 		$data['apply2']=$this->t_menu_model->get_apply2();//调用get_apply2函数获取排课成功的所有教学班信息
 		$data['apply3']=$this->t_menu_model->get_apply3();//调用get_apply3函数获取待调整的所有教学班信息
 		$data['apply4']=$this->t_menu_model->get_apply4();//调用get_apply4函数获取已被删除的所有教学班信息
@@ -28,16 +28,12 @@ class teacher_menu extends CI_Controller{
 			$this->load->view('default/teacher_menu',$data);
 	   		echo "<script>alert('您已开设此课！')</script>";
 		}*/
-		if(!empty($courseid))
-		{
-				if(!$this->t_menu_model->addapply($courseid)){//添加失败
-			   		//$this->load->view('r2/teacher_menu',$data);//调取teacher_menu页面，将$data传递给它
-			   		echo "<script>alert('添加不成功，请重新操作！')</script>";//弹出添加失败的提示框
-			   }
-			   else{
-			   		echo "<script>alert('添加成功')</script>";//弹出添加成功的提示框
-			   	}
-		}
+		else if(!$this->t_menu_model->addapply()){//添加失败
+	   		$this->load->view('r2/teacher_menu',$data);//调取teacher_menu页面，将$data传递给它
+	   		echo "<script>alert('添加不成功，请重新操作！')</script>";//弹出添加失败的提示框
+	   }
+	   else{
+	   		echo "<script>alert('添加成功')</script>";//弹出添加成功的提示框
 			//重新获取数据
 			$data['tid']=$this->session->userdata['uid'];
 			$data['apply1']=$this->t_menu_model->get_apply1();
@@ -46,10 +42,9 @@ class teacher_menu extends CI_Controller{
 		$data['apply4']=$this->t_menu_model->get_apply4();
 		$data['apply5']=$this->t_menu_model->get_apply5();
 		$data['classroom']=$this->t_menu_model->get_classroom();
-		$data['teacher']=$this->t_menu_model->get_teacher();
 		$this->load->view('r2/teacher_menu',$data);//调取teacher_menu页面，将新的数据$data传递给它
 	   		
-	   
+	   }
 		$this->load->helper('url');
 	}
 }

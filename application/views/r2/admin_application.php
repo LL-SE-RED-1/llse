@@ -17,7 +17,7 @@ $this->load->helper('url');
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>自动排课申请处理</title>
+    <title>手动排课申请处理</title>
     
     <!-- Bootstrap core CSS -->
     <link href="<?php echo  base_url() ;?>application/views/static/css/bootstrap.min.css" rel="stylesheet">
@@ -47,7 +47,7 @@ $this->load->helper('url');
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<?php echo site_url('llse_welcome');?>">浙江大学教务管理系统</a>
+          <a class="navbar-brand" href="<?php echo site_url('llse_welcome');?>" >浙江大学教务管理系统</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -66,17 +66,14 @@ $this->load->helper('url');
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
-        <!--
-           侧边栏，链接到不同模块
-        -->
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="admin_classroom_edit">自动排课 <span class="sr-only">(current)</span></a></li>
-            <li><a href="Search">查找与打印</a></li>
+            <li class="active"><a href="#">自动排课 <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">查询与打印</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h1 class="page-header">Welcome, 管理员</h1>
-        <!-- 三个子模块 -->
+
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-3 placeholder">
               <a href="admin_classroom_edit"><img data-src="holder.js/200x200/auto/sky" class="img-responsive"></a>
@@ -86,52 +83,50 @@ $this->load->helper('url');
             <div class="col-xs-6 col-sm-3 placeholder">
               <a href="admin_auto_arrange"><img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail"></a>
               <h4>自动排课</h4>
-              <span class="text-muted">处理教师开班申请</span>
+              <span class="text-muted">处理教师调课申请</span>
             </div>
             <div class="col-xs-6 col-sm-3 placeholder">
-              <a href="admin_apply"><img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail"></a>
+              <a href="admin_application"><img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail"></a>
               <h4>手动排课</h4>
               <span class="text-muted">手动调整教师排课申请</span>
             </div>
           </div>
-        <!--  显示老师提交的未处理的申请 -->
-         <h2 class="sub-header">开班申请</h2>
+         <h2 class="sub-header">处理教师调课申请</h2>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>课程id</th>
-                  <th>申请教师</th>
-                  <th>申请日期</th>
+                  <th>课程名称</th>
+                  <th>教师名称</th>
+                  <th>申请提交时间</th>
                   <th>操作</th>
                 </tr>
               </thead>
               <tbody>
-                <?php foreach ($apply as $item): ?>
+                <?php foreach ($application as $appli_item): ?>
                 <tr>
-                  <td><?php echo $item['course_id']?></td>
-                  <td><?php echo $item['teacher_id']?></td>
-                  <td><?php echo $item['date']?></td>
-                  <td><!--<button class='btn' type='button'>删除</button>-->
-                    <a href="?crid=<?php echo $item['class_id']?>">删除</a>
+                  <td><?php echo $appli_item['class_id']?></td>
+                  <td><?php echo $appli_item['teacher_id']?></td>
+                  <td><?php echo $appli_item['date']?></td>
+                  <td><button class='btn btn-info' type='button'>编辑</button>
+                      <button class='btn' type='button'>删除</button>
                   </td>
                 </tr>
                 <?php endforeach ?>
               </tbody>
-              <tbody><tr><th></th>
-               <td>
-                  <ul class="pager">
-                     <li><a href="?pid=<?php echo $page-1?>">Previous</a></li>
-                     <li><a href="?pid=<?php echo $page+1?>">Next</a></li>
-                  </ul>
-               </td></tr>
-            </tbody>
             </table>
           </div>
-        
-          <form name="arr" id="arran" method="POST" Action="<?php echo base_url();?>index.php/admin_auto_arrange/arrange">
-             <button class='btn btn-success' type='submit'>开始排课</button>
-          </form>
+          <div class="pager">
+            <ul>
+               <li><a href="#">Prev</a></li>
+               <li><a href="#">1</a></li>
+               <li><a href="#">2</a></li>
+               <li><a href="#">3</a></li>
+               <li><a href="#">4</a></li>
+               <li><a href="#">5</a></li>
+               <li><a href="#">Next</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

@@ -8,9 +8,7 @@ class Admin_apply extends CI_Controller{
 	public function index(){
 	   $this->load->model('r2/apply_model');
 	   //处理一开始没有输入的情况
- 	   if (empty($_GET['clid'])) {
- 	   	   $data['man_apply_tmp'] = $this->apply_model->get_application();
-        }
+ 	   if (empty($_GET['clid'])) $data['man_apply_tmp'] = $this->apply_model->get_application();
  	   //删除
 	   else {
 	   	$this->apply_model->delete_application();

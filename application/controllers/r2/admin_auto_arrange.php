@@ -55,18 +55,16 @@ class Admin_auto_arrange extends CI_Controller{
        /*从course和teacher获取课程信息，教师信息*/ 
        $course_name = $course->name;
        $campus = $course->campus;
-       $college = $course->college;
-       $hour = $course->credit;
+       $hour = $course->hour;
        $type = $course->ctype;
        $capacity = $course->capacity;
        $teacher_id = $value['teacher_id'];
        $teacher = $this->auto_arrange_model->get_teacher($teacher_id);
        $teacher_name = $teacher->name;
       /*获取系统信息*/
-       //$tmp = now();
-       $tmpdate = explode("-",date('Y-m-d H:i:s'));
+       $tmpdate = explode("-",now());
        $year=$tmpdate[0];
-       $season=floor($tmpdate[1]/6)+1;  //1:代表秋冬，2：代表春夏
+       $season=$tmpdate[1]/6+1;  //1:代表秋冬，2：代表春夏
       /*寻找符合条件的教室*/
        $sche="";
        $room="";
@@ -135,25 +133,21 @@ class Admin_auto_arrange extends CI_Controller{
                            'teacher_id'=>$teacher_id,
                            'date'=>$date,
                            'state'=>2 );
-          // echo "****".$id."****".$course_id."****".$teacher_id."****".$room."****".$capacity."****".$year."****".$campus."****".$season."****".$sche."****".$type."****".$testtime."*************";
-           //$sq = "insert into classes (class_id, course_id,teacher_id,classroom,capacity,margin,access_score,access_num,year,campus,season,course_name,teacher_name,sche,ctype,testtime) 
-      //values($id,'$course_id','$teacher_id','$room',$capacity,$capacity,0,0,$year,$campus,$season,'$course_name','$teacher_name','$sche',$type,$testtime)";
            $class = array('class_id'=>$id,
                           'course_id'=>$course_id,
                           'teacher_id'=>$teacher_id,
                           'classroom'=>$room,
                           'capacity'=>$capacity,
                           'margin'=>$capacity,
-                          'assess_score' => 0,
-                          'assess_num' => 0,
+                          'access_score' => 0,
+                          'access_num' => 0,
                           'year'=>$year,
                           'campus'=>$campus,
                           'season'=>$season,
-                          'college'=>$college,
                           'course_name'=>$course_name,
                           'teacher_name'=>$teacher_name,
                           'sche'=>$sche,
-                          'ctype'=>$type,
+                          'type'=>$type,
                           'testtime'=>$testtime);
            $this->auto_arrange_model->insert_class($class);
      
