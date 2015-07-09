@@ -20,6 +20,20 @@ input[type="text"], textarea{
 	<form id="addhomework" action="post" class="input-group-sm">
 	<table class="table table-striped">
 	<col width="25%"><col width="75%">
+    <tr><th></th><td>
+  <div id="datetimepicker1">
+    <input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input>
+    <span class="add-on glyphicon glyphicon-calendar">
+      </i>
+    </span>
+  </div>
+<script type="text/javascript">
+  $(function() {
+    $('#datetimepicker1').datetimepicker({
+      language: 'pt-BR'
+    });
+  });
+</script></td></tr>
 	<tr><th>作业名称</th><td><input type="text" name="name" require></tr>
 	<tr><th>开始时间</th><td><input type="text" name="starttime" placeholder="YYYY-MM-DD HH:mm:ss"></td></tr>
 	<tr><th>结束时间</th><td><input type="text" name="endtime" placeholder="YYYY-MM-DD HH:mm:ss"></td></tr>

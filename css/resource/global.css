@@ -7,10 +7,10 @@ body {
 
 .container-fluid, .container-fluid>.row, .main, .m-wrap{
     height:100%;
-    overflow-y:hidden;
 }
 body>.container-fluid{
-    min-height:600px;
+    min-height:700px;
+    overflow-y:hidden;
 }
 
 .m-wrap{
