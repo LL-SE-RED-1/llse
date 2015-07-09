@@ -33,5 +33,8 @@ class Admin_classroom_edit extends CI_Controller{
 		   $this->load->helper('url');
 
 	   }
+	   else{
+	   	  redirect('llse_welcome');
+	   }
 	}
 }
