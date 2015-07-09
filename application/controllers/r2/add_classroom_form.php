@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class add_classroom_form extends CI_Controller{
 	public function index(){
-		echo"<script>alert('yyy');</script>";
+		//echo"<script>alert('yyy');</script>";
 	   $this->load->model('r2/add_classroom_form_model');
 	   //$this->add_classroom_form_model->test();
 	   //对输入的类型格式判断
@@ -22,18 +22,18 @@ class add_classroom_form extends CI_Controller{
 	   }
 	   else if(!$this->add_classroom_form_model->addtodatabase()){
 	   //对数据库操作成功与否判断
-	   		$this->load->view('default/add_classroom');
+	   		$this->load->view('r2/add_classroom');
 	   		echo "<script>alert('添加失败，请重新操作')</script>";
 	   }
 	   else{
 	   //添加成功返回主界面
-	   		$this->load->helper('url');
-	   		echo "<script>alert('添加成功')</script>";
+	   		//$this->load->helper('url');
+	   		//echo "<script>alert('添加成功')</script>";
 	   		//echo '<script>window.close();</script>';
-	   		$urls = base_url();//
-	   		$url = "{$url}admin_classroom_edit";
+	   		//$urls = base_url();//
+	   		//$url = "{$urls}index.php/r2/admin_classroom_edit";
 	   		//echo $url;
-	   		Header("Location: $url");
+	   		redirect('r2/admin_classroom_edit');
 	   }
 	   $this->load->helper('url');
 	}

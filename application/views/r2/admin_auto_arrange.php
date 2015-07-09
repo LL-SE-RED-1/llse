@@ -60,7 +60,7 @@ $this->load->helper('url');
         -->
           <ul class="nav nav-sidebar">
             <li class="active"><a href="admin_classroom_edit">自动排课 <span class="sr-only">(current)</span></a></li>
-            <li><a href="Search">查找与打印</a></li>
+            <li><a href="<?php echo  base_url() ;?>/index.php/r2/Search">查找与打印</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
