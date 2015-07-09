@@ -25,6 +25,10 @@
 		public $day;
 		public $class_time;
 		public $course_id;
+		public $assess_num;
+		public $assess_score;
+		public $year;
+		public $season;
 	}
 
 	class r3_Class_model extends CI_Model{
@@ -202,6 +206,10 @@
 							$d->class_name = $result[$i]->course_name;
 							$d->day = $now_time[$j*15+1];
 							$d->class_time = $k;
+							$d->assess_score = $result[$i]->assess_score;
+							$d->assess_num = $result[$i]->assess_num;
+							$d->year = $result[$i]->year;
+							$d->season = $result[$i]->season;
 							$result2[] = $d;
 						}
 					}
