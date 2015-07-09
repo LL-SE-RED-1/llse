@@ -40,7 +40,7 @@ class Adaptor extends CI_Model{
 	
 	function get_course_info($courseid){
         $this->load->model("r2/search_model");
-        $info = $this->search_model->classinfo(array("class_id" => 31));
+        $info = $this->search_model->classinfo(array("class_id" => $courseid));
 
         $ret = array();
         for ($i = 0; $i != count($info); ++$i)

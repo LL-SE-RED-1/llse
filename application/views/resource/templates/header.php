@@ -9,6 +9,7 @@ sort($years);
 $years = array_reverse($years);
 $role = $roles[$role];
 $urlprefix = "resource/$role";
+$search_str = isset($search_str)?$search_str:"";
 ?>
 
 <!DOCTYPE html>
