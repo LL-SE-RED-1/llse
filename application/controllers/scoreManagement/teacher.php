@@ -48,7 +48,7 @@ class Teacher extends CI_Controller {
         $this->load->view('template/navigator', $data);
         $this->load->view('r7/side_navi', $data);
         if ($data['type'] == 2) {
-            $data['path'] = 'teacher'
+            $data['path'] = 'teacher';
         }
         else {
             $this->load->view('r7/student', $data);
