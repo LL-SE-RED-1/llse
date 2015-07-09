@@ -1,3 +1,7 @@
+ <?php 
+ $uid = $this->session->userdata("uid");
+ $type = $this->session->userdata("user_type");
+ ?>
  <body>
 
   <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -7,6 +11,7 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
+          <li><?php include "head_message.php";?> </li>
           <li><a href="<?php site_url('ims/ims_welcome');?>"><?php echo $uid;?></a></li>
           <li><a href="<?php echo site_url('modify_pass');?>">修改密码</a></li>
           <?php if ($type == 1): ?>
