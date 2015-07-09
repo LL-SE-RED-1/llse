@@ -452,17 +452,44 @@ class R3_Student extends CI_controller{
 					$this->currim->delete_class($sid,$selected[0]->class_id);
 			}
 
-			/*
+			
 			$chosentime = $this->classm->get_time_by_cid($clsid);
 			$existedtime = $this->currim->get_time_by_sid($sid);
 			$n = count($existedtime);
-			*/
+
 
 			$good = 1;
 
 			//以下判断当前选的课是否与已选上的课有冲突
-			/*
+			$chosen = $chosentime[0]->class_time;
+			$chosen_length = strlen($chosen);
+			$xxx = $chosen_length/15;
+
 			for ($i = 0; $i < $n; $i++){
+				$exist_time = $existedtime[$i]->class_time;
+				$exist_length = strlen($exist_time);
+				$yyy = $exist_length/15;
+
+				for ($j = 0; $j < $yyy; $j++){
+					for ($k = 0; $k < $xxx; $k++){
+						if ($chosen[$k*15+1] == $exist_time[$j*15+1]){
+							for ($ll = 1; $ll <= 13; $ll++){
+								if ($chosen[$k*15+1+$ll]==1 && $exist_time[$j*15+1+$ll]==1){
+									$good = 0;
+									$error_prompt = '上课时间冲突';
+									break;
+								}
+							}
+						}
+						if ($good == 0)
+							break;
+					}
+					if ($good == 0)
+						break;
+				}
+
+
+				/*
 				if ($chosentime[0]->day == $existedtime[$i]->day && $chosentime[0]->class_time == $existedtime[$i]->class_time){
 					$good = 0;
 					$error_prompt = '上课时间冲突';
@@ -473,8 +500,11 @@ class R3_Student extends CI_controller{
 					$error_prompt = '考试时间冲突';
 					break;
 				}
+				*/
+				if ($good == 0)
+					break;
 			}
-			*/
+			
 			
 
 			//以下判断当前选的课是否还有余量
