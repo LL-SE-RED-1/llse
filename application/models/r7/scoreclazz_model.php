@@ -73,7 +73,7 @@ class Scoreclazz_model extends CI_Model {
             return FALSE;
         }
         //插入到学生成绩表
-        $this->db->insert_batch('score_record', array_map(function ($item, $index) use ($id, $classID) {
+        $this->db->insert_batch('score_scorerecord', array_map(function ($item, $index) use ($id, $classID) {
                 return array(
                     'class_id' => $classID,
                     'student_id' => $item['studentId'],
@@ -94,8 +94,8 @@ class Scoreclazz_model extends CI_Model {
      */
     public function queryStudentCourses($studentID, $query = NULL, $termStart = NULL, $termEnd = NULL) {
         $sql = $this->db->where('student_id', $studentID);
-        $sql = $this->db->join('score_single', 'score_single.score_id=score_record.score_single_id');
-        $scores = $this->db->get('score_record')->result_array();
+        $sql = $this->db->join('score_single', 'score_single.score_id=score_scorerecord.score_single_id');
+        $scores = $this->db->get('score_scorerecord')->result_array();
         if (empty($scores)) $scores = array();
         foreach ($scores AS $index => &$value) {
             $info = $this->fake->getClassInfo($value['class_id']);
@@ -171,7 +171,7 @@ class Scoreclazz_model extends CI_Model {
             $this->scoreCommon->set_error('本班成绩还未提交，请提交后再查询');
             return FALSE;
         }
-        return $this->db->where('class_id', $classID)->join('score_single', 'score_single.score_id=score_record.score_single_id')->get('score_record')->result_array();
+        return $this->db->where('class_id', $classID)->join('score_single', 'score_single.score_id=score_scorerecord.score_single_id')->get('score_scorerecord')->result_array();
     }
 
     public function getStudentPendingModifingRequest($classID, $studentID) {
@@ -220,7 +220,7 @@ class Scoreclazz_model extends CI_Model {
                 $this->db->trans_rollback();
                 return FALSE;
             }
-            $fromID = $this->db->where('class_id', $classID)->where('student_id', $r['studentId'])->get('score_record')->row()->score_single_id;
+            $fromID = $this->db->where('class_id', $classID)->where('student_id', $r['studentId'])->get('score_scorerecord')->row()->score_single_id;
             $this->db->insert('score_single', array(
                 'score_score' => (int) $r['mScore'],
                 'score_state' => ($r['mIsAbsent'] === TRUE || $r['mIsAbsent'] === 'true') ? 1 : 0
@@ -349,7 +349,7 @@ class Scoreclazz_model extends CI_Model {
                 if ($r['approval'] && $req['teacher_state_' . (3 - $tIndex)] == 1) {
                     // approval!
                     $this->db->where('request_id',$r['requestId'])->set('is_finished', 1)->set('time_finish', 'now()', false)->update('score_modifing_request');
-                    $this->db->where('class_id', $req['class_id'])->where('student_id', $req['student_id'])->set('score_single_id', $req['score_to'])->update('score_record');
+                    $this->db->where('class_id', $req['class_id'])->where('student_id', $req['student_id'])->set('score_single_id', $req['score_to'])->update('score_scorerecord');
                 } else {
                     // 有一个教师拒绝了，于是失败!
                     $this->db->where('request_id',$r['requestId'])->set('is_finished', 2)->set('time_finish', 'now()', false)->update('score_modifing_request');
@@ -362,8 +362,8 @@ class Scoreclazz_model extends CI_Model {
 
     public function queryLearnedCourse($studentID){
         $sql = $this->db->where('student_id', $studentID);
-        $sql = $this->db->join('score_single', 'score_single.score_id=score_record.score_single_id');
-        $scores = $this->db->get('score_record')->result_array();
+        $sql = $this->db->join('score_single', 'score_single.score_id=score_scorerecord.score_single_id');
+        $scores = $this->db->get('score_scorerecord')->result_array();
         if (empty($scores)) $scores = array();
         foreach ($scores AS $index => &$value) {
             $info = $this->fake->getClassInfo($value['class_id']);
