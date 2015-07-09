@@ -20,7 +20,7 @@ padding-top: 5%;
       <a href="<?php echo site_url('ims/ims_welcome');?>">在线考试子系统</a>
   </li>
    <li>
-      <a href="<?php echo site_url('r7/teacher.php');?>">成绩管理子系统</a>
+      <a href="<?php echo site_url('r7/teacher/index');?>">成绩管理子系统</a>
   </li>
 </ul>
 </div>
