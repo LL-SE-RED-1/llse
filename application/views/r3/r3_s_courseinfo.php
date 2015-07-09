@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-	<?php include 'application/views/r3_header.php';?>
+	<?php include 'application/views/r3/r3_header.php';?>
 </head>
 
 
 
 
   <body>
-	<?php include 'application/views/r3_s_boarder.php';?>
-	<?php include 'application/views/r3_s_sidebar.php';?>
+	<?php include 'application/views/r3/r3_s_boarder.php';?>
+	<?php include 'application/views/r3/r3_s_sidebar.php';?>
 
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           
-	       <?php include 'application/views/r3_s_circles.php'; ?>
+	       <?php include 'application/views/r3/r3_s_circles.php'; ?>
     	     <h1 class="page-header">课程信息</h1>
         <div class="col-sm-12 col-md-12 table-responsive">
             <form>
@@ -24,7 +24,7 @@
                       <th><h3><?php echo $coursename;?></h3></th>
                       <th colspan=3><?php 
                           echo '<button class="btn btn-default" formaction=';
-                          echo site_url("r3_student/selectpage/".$sid.'/'.$courseid);
+                          echo site_url("r3/r3_student/selectpage/".$sid.'/'.$courseid);
                           echo '>转入选课页面</button></th>';?></th>
                     </tr>
                   </thead>
@@ -54,6 +54,6 @@
         </div>
       </div>
     </div>
-  <?php include 'application/views/r3_script.php';?> 
+  <?php include 'application/views/r3/r3_script.php';?> 
   </body>
 </html>
