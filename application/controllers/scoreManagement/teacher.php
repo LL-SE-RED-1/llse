@@ -30,7 +30,7 @@ class Teacher extends CI_Controller {
             ));
     }
 
-    public function index($path) {
+    public function index($path=) {
         $data['navi'] = 0;
         $data['uid'] = $this->session->userdata('uid');
         $data['type'] = $this->session->userdata('user_type');
@@ -39,6 +39,12 @@ class Teacher extends CI_Controller {
         $this->load->view('template/header');
         $this->load->view('template/navigator', $data);
         $this->load->view('r7/side_navi', $data);
+        if ($data['type'] == 2) {
+            $data['path'] = 'teacher'
+        }
+        else {
+            $this->load->view('r7/student', $data);
+        }
         $this->load->view('r7/teacher', $data);
     }
 
