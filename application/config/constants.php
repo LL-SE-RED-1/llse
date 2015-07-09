@@ -36,6 +36,26 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
+/*
+ * Numbers representing Terms
+ */ 
+define('TERM_SPRING', '1');
+define('TERM_SUMMER', '2');
+define('TERM_SPRING_SUMMER', '3');
+define('TERM_AUTUMN', '4');
+define('TERM_WINTER', '5');
+define('TERM_AUTUMN_WINTER', '6');
+define('TERM_SUMMER_SHORT', '7');
+define('TERM_WINTER_SHORT', '8');
 
+define('ROLE_TEACHER', 1);
+define('ROLE_STUDENT', 0);
+
+define('STATUS_UNDONE', 0);
+define('STATUS_UNSCORED', 1);
+define('STATUS_SCORED', 2);
+
+define('SEARCH_TYPE_FILE', "课程资源");
+define('SEARCH_TYPE_HOMEWORK', "作业");
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
