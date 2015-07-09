@@ -1,3 +1,7 @@
+ <?php 
+ $uid = $this->session->userdata("uid");
+ $type = $this->session->userdata("user_type");
+ ?>
  <body>
 
   <nav class="navbar navbar-inverse navbar-fixed-top">

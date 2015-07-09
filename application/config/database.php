@@ -1,7 +1,4 @@
-<?php if (!defined('BASEPATH')) {
-	exit('No direct script access allowed');
-}
-
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 | -------------------------------------------------------------------
 | DATABASE CONNECTIVITY SETTINGS
@@ -20,7 +17,6 @@
 |	['password'] The password used to connect to the database
 |	['database'] The name of the database you want to connect to
 |	['dbdriver'] The database type. ie: mysql.  Currently supported:
-mysql, mysqli, postgre, odbc, mssql, sqlite, oci8
 |	['dbprefix'] You can add an optional prefix, which will be added
 |				 to the table name when using the  Active Record class
 |	['pconnect'] TRUE/FALSE - Whether to use a persistent connection
@@ -41,19 +37,46 @@ mysql, mysqli, postgre, odbc, mssql, sqlite, oci8
 |	['stricton'] TRUE/FALSE - forces 'Strict Mode' connections
 |							- good for ensuring strict SQL while developing
 |
-| The $active_group variable lets you choose which connection group to
-| make active.  By default there is only one group (the 'default' group).
-|
 | The $active_record variables lets you determine whether or not to load
 | the active record class
- */
+*/
+
+$db['resource']['hostname'] = '218.244.137.223';
+$db['resource']['username'] = 'ims';
+$db['resource']['password'] = 'ims@2015';
+//$db['resource']['password'] = 'root';
+$db['resource']['database'] = 'llse';
+$db['resource']['dbdriver'] = 'mysql';
+$db['resource']['dbprefix'] = 'res_';
+$db['resource']['pconnect'] = false;
+$db['resource']['db_debug'] = TRUE;
+$db['resource']['cache_on'] = FALSE;
+$db['resource']['cachedir'] = '';
+$db['resource']['char_set'] = 'utf8';
+$db['resource']['dbcollat'] = 'utf8_general_ci';
+$db['resource']['swap_pre'] = '';
+$db['resource']['autoinit'] = TRUE;
+$db['resource']['stricton'] = FALSE;
+
+$db['adaptor']['hostname'] = '218.244.137.223';
+$db['adaptor']['username'] = 'ims';
+$db['adaptor']['password'] = 'ims@2015';
+//$db['resource']['password'] = 'root';
+$db['adaptor']['database'] = 'llse';
+$db['adaptor']['dbdriver'] = 'mysql';
+$db['adaptor']['dbprefix'] = 'res_';
+$db['adaptor']['pconnect'] = false;
+$db['adaptor']['db_debug'] = TRUE;
+$db['adaptor']['cache_on'] = FALSE;
+$db['adaptor']['cachedir'] = '';
+$db['adaptor']['char_set'] = 'utf8';
+$db['adaptor']['dbcollat'] = 'utf8_general_ci';
+$db['adaptor']['swap_pre'] = '';
+$db['adaptor']['autoinit'] = TRUE;
+$db['adaptor']['stricton'] = FALSE;
 
 $active_group = 'default';
 $active_record = TRUE;
-
-// $db['default']['hostname'] = 'localhost';
-// $db['default']['username'] = 'root';
-// $db['default']['password'] = 'root';
 
 $db['default']['hostname'] = '218.244.137.223';
 $db['default']['username'] = 'ims';
@@ -72,8 +95,5 @@ $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
-
 /* End of file database.php */
 /* Location: ./application/config/database.php */
-//show full colomns from tablename;
-//

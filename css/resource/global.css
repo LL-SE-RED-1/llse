@@ -1,0 +1,308 @@
+form, body, div, span, label{
+	margin: 0;
+}
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.container-fluid, .row, .main, .m-wrap{
+    height:100%;
+}
+
+.m-wrap{
+    position:relative;
+    width:100%;
+    min-width:1000px;
+}
+
+.m-body{
+	margin:0 auto;
+	width: 1100px;
+	height: 640px;
+}
+
+.m-head{
+	position:absolute;
+	top: 0px;
+	height: 75px;
+	left: 0px;
+	right: 0px;
+}
+
+.m-head::after{
+	display: block;
+	content: ".";
+	height: 0px;
+	visibility: hidden;
+	clear: both;
+}
+
+.m-head>div{
+	float:left;
+}
+
+.m-head .m-head-wrap{
+    float:right;
+	margin-left: 0px;
+}
+.m-head div.m-term{
+	float:right;
+	min-height: 28px;
+	margin-right: 20px;
+}
+.m-head div.m-search{
+	float:right;
+	min-height: 28px;
+	width: 200px;
+/*	background: red;*/
+}
+
+.btn-search {
+/*	background: #ccc;*/
+	height: 34px;
+}
+
+.m-cont{
+	position: absolute;
+	top: 75px;
+	bottom: 0px;
+    width:100%;
+    min-width:1000px;
+	font-family: "Helvetica Neue", 'Microsoft YaHei', Helvetica, Arial, sans-serif;
+}
+
+.m-cont::after{
+	display: block;
+	content: ".";
+	height: 0px;
+	visibility: hidden;
+	clear: both;	
+}
+
+input[type=file] {
+	display:none;
+}
+.m-nav label[for]{
+	color: #fff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+
+table.table label.btn{
+	padding:2px 6px;
+	border-radius: 2px;
+}
+
+h1 a, h1 a:hover, h1 a:visited, h1 a:focus{
+	color: black;
+	text-decoration: none;
+}
+
+.m-main{
+	position: absolute;
+	overflow: auto;
+	top: 0px;
+	bottom: 75px;
+	left: 0px;
+	right: 0px;
+}
+
+.m-page{
+	position: absolute;
+	bottom: 0px;
+	height: 75;
+	left: 0px;
+	right: 0px;
+}
+
+.m-cmain{
+	position: absolute;
+	overflow: auto;
+	top: 75px;
+	bottom: 75px;
+	left: 0px;
+	right: 0px;
+}
+
+.m-tmain{
+	position: absolute;
+	overflow: auto;
+	top: 40px;
+	bottom: 75px;
+	left: 0px;
+	right: 0px;
+}
+
+.m-thead.scroll{
+	right: 17px;
+}
+
+.m-thead{
+	position: absolute;
+	top: 0px;
+	height: 40px;
+	left: 0px;
+	right: 0px;
+	background: white;
+	border-bottom: 2px solid rgb(221, 221, 221);
+}
+
+.m-thead div{
+	font-weight: bold;
+	padding: 8px;
+}
+
+.m-thead.m-sort div{
+	cursor: pointer;
+}
+
+.m-thead.m-sort div:hover{
+	background:#f8f8f8;
+}
+
+.m-thead.m-sort div:last-child{
+	cursor:auto;
+}
+
+.m-thead.m-sort div:last-child{
+	background: white;
+}
+
+.m-tbody>div div{
+	box-sizing: border-box;
+	padding: 8px;
+	vertical-align: middle;
+} 
+
+.m-tbody>div div .btn{
+	padding: 1px 6px;
+}
+.m-tbody div.row  {
+	min-height: 40px;
+	margin: 0px;
+	min-width: 1000px;
+	border-bottom: 1px solid rgb(221, 221, 221)
+}
+
+.m-tbody {
+	padding-bottom: 40px;
+}
+
+.table-striped.m-tbody .row:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+
+.m-tbody>div div.deletable-file,div.deletable-file {
+	margin-top: 4px;
+	display:inline-block;
+	height: 26px;
+	border: 1px solid #777;
+	background-color: rgba(119, 119, 119, 0.8);
+	border-radius: 4px;
+	color: white;
+	padding: 1px 5px;
+}
+
+.m-tbody>div div.deletable-file:first-child {
+	margin-top: 0;
+}
+
+.deletable-file>span:nth-child(1){
+	display: inline-block;
+	width: 60px;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	overflow:hidden;
+	vertical-align: middle;
+}
+
+.deletable-file .glyphicon{
+	margin-left: 5px;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.deletable-file .glyphicon:hover, .deletable-file a:hover{
+	cursor: pointer;
+	color: #ccc;
+}
+
+.deletable-file a{
+	display: inline-block;
+	width: 120px;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	overflow:hidden;
+	text-decoration: none;
+	vertical-align: middle;
+	color: white;
+}
+
+#toast{
+	font-family: "Helvetica Neue", 'Microsoft YaHei', Helvetica, Arial, sans-serif;
+	position: fixed;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	z-index: 1000;
+	background: rgba(119, 119, 119, 0.4);
+}
+
+#toast>div{
+	position: absolute;
+	left: 42%;
+	top: 42%;
+	height: 4em;
+	width: 7em;
+	padding: 1.5em 0;
+	background: white;
+	border-radius: 0.3em;
+	/*box-shadow: 3px 3px 5px gray;*/
+	font-size: 25px;
+	line-height: 100%;
+	text-align: center;
+}
+#toast>div>p{
+	font-weight: bold;
+}
+
+#toast>div>span{
+	position: absolute;
+	display: inline-block;
+	right: 0.5em;
+	top: 0.5em;
+	height: 1em;
+	width: 1em;
+	font-size:13px;	 
+	color: black;
+	cursor: pointer;
+}
+
+.m-tbody>div div.downloadable-file,div.downloadable-file {
+	margin: 2px 0;
+	display:inline-block;
+	height: 26px;
+	text-align: center;
+	border: 1px solid #777;
+	background-color: rgba(119, 119, 119, 0.8);
+	border-radius: 4px;
+	color: white;
+	padding: 1px 5px;
+}
+
+.downloadable-file a{
+	display: inline-block;
+	width: 120px;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	overflow:hidden;
+	text-decoration: none;
+	vertical-align: middle;
+	color: white;
+}
+
+.deletable-file a:hover{
+	cursor: pointer;
+	color: #ccc;
+}
