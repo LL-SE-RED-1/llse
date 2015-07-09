@@ -8,7 +8,7 @@ class Schedule_model extends CI_Model {
 
   public function add_sche($tid){
     $this->load->database();
-    $this->db->query("insert into teach_sche (teacher_id,M,T,W,TH,F) values($tid,255.255,255,255,255)");
+    $this->db->query("insert into teach_sche (teacher_id,M,T,W,TH,F) values($tid,255,255,255,255,255)");
 
   }
 

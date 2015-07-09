@@ -11,7 +11,7 @@ padding-top: 5%;
       <a href="<?php echo site_url('r2/admin_classroom_edit');?>">排课子系统</a>
   </li>
   <li>
-      <a href="<?php echo site_url('r3_student');?>">选课子系统</a>
+      <a href="<?php echo site_url('r3/r3_student');?>">选课子系统</a>
   </li>
    <li>
       <a href="<?php echo site_url('resource/student');?>">课程资源子系统</a>
