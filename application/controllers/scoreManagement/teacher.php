@@ -53,7 +53,6 @@ class Teacher extends CI_Controller {
         else {
             $this->load->view('r7/student', $data);
         }
-        $this->load->view('r7/teacher', $data);
     }
 
     public function getTeacherCourses() {
